@@ -219,22 +219,6 @@ DELETE https://appwrite.io/v1/account/sessions/{id}
 | --- | --- | --- | --- |
 | id | string | **Required** Session unique ID. |  |
 
-## Create Verification
-
-```http request
-POST https://appwrite.io/v1/account/verification
-```
-
-** Use this endpoint to send a verification message to your user email address to confirm they are the valid owners of that address. Both the **userId** and **secret** arguments will be passed as query parameters to the URL you have provider to be attached to the verification email. The provided URL should redirect the user back for your app and allow you to complete the verification process by verifying both the **userId** and **secret** parameters. Learn more about how to [complete the verification process](/docs/account#updateAccountVerification). 
-
-Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface. **
-
-### Parameters
-
-| Field Name | Type | Description | Default |
-| --- | --- | --- | --- |
-| url | string | URL to redirect the user back to your app from the verification email. |  |
-
 ## Updated Verification
 
 ```http request
