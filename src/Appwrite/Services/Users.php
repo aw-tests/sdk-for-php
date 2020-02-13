@@ -128,11 +128,11 @@ class Users extends Service
      * settings you wish to update.
      *
      * @param string  $userId
-     * @param string  $prefs
+     * @param object  $prefs
      * @throws Exception
      * @return array
      */
-    public function updatePrefs(string $userId, string $prefs):array
+    public function updatePrefs(string $userId, object $prefs):array
     {
         $path   = str_replace(['{userId}'], [$userId], '/users/{userId}/prefs');
         $params = [];
