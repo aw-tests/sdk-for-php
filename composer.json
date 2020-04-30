@@ -1,15 +1,15 @@
 {
-    "name": "appwrite/appwrite",
+    "name": "/",
     "description": "",
     "type": "library",
-    "license": "BSD-3-Clause",
+    "license": "",
     "support": {
-        "url": "https://appwrite.io/support",
-        "email": "team@appwrite.io"
+        "url": "",
+        "email": ""
     },
     "autoload": {
         "psr-4": {
-            "Appwrite\\": "src/Appwrite"
+            "\\": "src/"
         }
     },
     "require": {
