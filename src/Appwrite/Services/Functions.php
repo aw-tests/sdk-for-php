@@ -40,11 +40,11 @@ class Functions extends Service
      * @param array  $vars
      * @param array  $events
      * @param string  $schedule
-     * @param string  $timeout
+     * @param int  $timeout
      * @throws Exception
      * @return array
      */
-    public function create(string $name, array $vars = , array $events = [], string $schedule = '', string $timeout = '15'):array
+    public function create(string $name, array $vars = , array $events = [], string $schedule = '', int $timeout = 15):array
     {
         $path   = str_replace([], [], '/functions');
         $params = [];
@@ -86,11 +86,11 @@ class Functions extends Service
      * @param array  $vars
      * @param array  $events
      * @param string  $schedule
-     * @param string  $timeout
+     * @param int  $timeout
      * @throws Exception
      * @return array
      */
-    public function update(string $functionId, string $name, array $vars = , array $events = [], string $schedule = '', string $timeout = '15'):array
+    public function update(string $functionId, string $name, array $vars = , array $events = [], string $schedule = '', int $timeout = 15):array
     {
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}');
         $params = [];
