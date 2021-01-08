@@ -14,10 +14,10 @@ class Users extends Service
      * Get a list of all the project users. You can use the query params to filter
      * your results.
      *
-     * @param string  $search
-     * @param int  $limit
-     * @param int  $offset
-     * @param string  $orderType
+     * @param string $search
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderType
      * @throws Exception
      * @return array
      */
@@ -41,9 +41,9 @@ class Users extends Service
      *
      * Create a new user.
      *
-     * @param string  $email
-     * @param string  $password
-     * @param string  $name
+     * @param string $email
+     * @param string $password
+     * @param string $name
      * @throws Exception
      * @return array
      */
@@ -66,7 +66,7 @@ class Users extends Service
      *
      * Get user by its unique ID.
      *
-     * @param string  $userId
+     * @param string $userId
      * @throws Exception
      * @return array
      */
@@ -86,7 +86,7 @@ class Users extends Service
      *
      * Get user activity logs list by its unique ID.
      *
-     * @param string  $userId
+     * @param string $userId
      * @throws Exception
      * @return array
      */
@@ -106,7 +106,7 @@ class Users extends Service
      *
      * Get user preferences by its unique ID.
      *
-     * @param string  $userId
+     * @param string $userId
      * @throws Exception
      * @return array
      */
@@ -127,8 +127,8 @@ class Users extends Service
      * Update user preferences by its unique ID. You can pass only the specific
      * settings you wish to update.
      *
-     * @param string  $userId
-     * @param array  $prefs
+     * @param string $userId
+     * @param array $prefs
      * @throws Exception
      * @return array
      */
@@ -149,7 +149,7 @@ class Users extends Service
      *
      * Get user sessions list by its unique ID.
      *
-     * @param string  $userId
+     * @param string $userId
      * @throws Exception
      * @return array
      */
@@ -169,7 +169,7 @@ class Users extends Service
      *
      * Delete all user sessions by its unique ID.
      *
-     * @param string  $userId
+     * @param string $userId
      * @throws Exception
      * @return array
      */
@@ -189,8 +189,8 @@ class Users extends Service
      *
      * Delete user sessions by its unique ID.
      *
-     * @param string  $userId
-     * @param string  $sessionId
+     * @param string $userId
+     * @param string $sessionId
      * @throws Exception
      * @return array
      */
@@ -210,8 +210,8 @@ class Users extends Service
      *
      * Update user status by its unique ID.
      *
-     * @param string  $userId
-     * @param string  $status
+     * @param string $userId
+     * @param string $status
      * @throws Exception
      * @return array
      */
@@ -226,5 +226,4 @@ class Users extends Service
             'content-type' => 'application/json',
         ], $params);
     }
-
 }

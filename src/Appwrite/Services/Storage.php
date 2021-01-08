@@ -15,10 +15,10 @@ class Storage extends Service
      * your results. On admin mode, this endpoint will return a list of all of the
      * project files. [Learn more about different API modes](/docs/admin).
      *
-     * @param string  $search
-     * @param int  $limit
-     * @param int  $offset
-     * @param string  $orderType
+     * @param string $search
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderType
      * @throws Exception
      * @return array
      */
@@ -44,9 +44,9 @@ class Storage extends Service
      * assigned to read and write access unless he has passed custom values for
      * read and write arguments.
      *
-     * @param \CurlFile  $file
-     * @param array  $read
-     * @param array  $write
+     * @param \CurlFile $file
+     * @param array $read
+     * @param array $write
      * @throws Exception
      * @return array
      */
@@ -70,7 +70,7 @@ class Storage extends Service
      * Get file by its unique ID. This endpoint response returns a JSON object
      * with the file metadata.
      *
-     * @param string  $fileId
+     * @param string $fileId
      * @throws Exception
      * @return array
      */
@@ -91,9 +91,9 @@ class Storage extends Service
      * Update file by its unique ID. Only users with write permissions have access
      * to update this resource.
      *
-     * @param string  $fileId
-     * @param array  $read
-     * @param array  $write
+     * @param string $fileId
+     * @param array $read
+     * @param array $write
      * @throws Exception
      * @return array
      */
@@ -116,7 +116,7 @@ class Storage extends Service
      * Delete a file by its unique ID. Only users with write permissions have
      * access to delete this resource.
      *
-     * @param string  $fileId
+     * @param string $fileId
      * @throws Exception
      * @return array
      */
@@ -138,7 +138,7 @@ class Storage extends Service
      * 'Content-Disposition: attachment' header that tells the browser to start
      * downloading the file to user downloads directory.
      *
-     * @param string  $fileId
+     * @param string $fileId
      * @throws Exception
      * @return array
      */
@@ -161,12 +161,12 @@ class Storage extends Service
      * and spreadsheets, will return the file icon image. You can also pass query
      * string arguments for cutting and resizing your preview image.
      *
-     * @param string  $fileId
-     * @param int  $width
-     * @param int  $height
-     * @param int  $quality
-     * @param string  $background
-     * @param string  $output
+     * @param string $fileId
+     * @param int $width
+     * @param int $height
+     * @param int $quality
+     * @param string $background
+     * @param string $output
      * @throws Exception
      * @return array
      */
@@ -192,8 +192,8 @@ class Storage extends Service
      * Get file content by its unique ID. This endpoint is similar to the download
      * method but returns with no  'Content-Disposition: attachment' header.
      *
-     * @param string  $fileId
-     * @param string  $as
+     * @param string $fileId
+     * @param string $as
      * @throws Exception
      * @return array
      */
@@ -208,5 +208,4 @@ class Storage extends Service
             'content-type' => 'application/json',
         ], $params);
     }
-
 }

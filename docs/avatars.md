@@ -81,6 +81,26 @@ GET https://appwrite.io/v1/avatars/image
 | width | integer | Resize preview image width, Pass an integer between 0 to 2000. | 400 |
 | height | integer | Resize preview image height, Pass an integer between 0 to 2000. | 400 |
 
+## Get User Initials
+
+```http request
+GET https://appwrite.io/v1/avatars/initials
+```
+
+** Use this endpoint to show your user initials avatar icon on your website or app. By default, this route will try to print your logged-in user name or email initials. You can also overwrite the user name if you pass the &#039;name&#039; parameter. If no name is given and no user is logged, an empty avatar will be returned.
+
+You can use the color and background params to change the avatar colors. By default, a random theme will be selected. The random theme will persist for the user&#039;s initials when reloading the same theme will always return for the same initials. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| name | string | Full Name. When empty, current user name or email will be used. |  |
+| width | integer | Image width. Pass an integer between 0 to 2000. Defaults to 100. | 500 |
+| height | integer | Image height. Pass an integer between 0 to 2000. Defaults to 100. | 500 |
+| color | string | Changes text color. By default a random color will be picked and stay will persistent to the given name. |  |
+| background | string | Changes background color. By default a random color will be picked and stay will persistent to the given name. |  |
+
 ## Get QR Code
 
 ```http request
@@ -96,5 +116,5 @@ GET https://appwrite.io/v1/avatars/qr
 | text | string | **Required** Plain text to be converted to QR code image. |  |
 | size | integer | QR code size. Pass an integer between 0 to 1000. Defaults to 400. | 400 |
 | margin | integer | Margin from edge. Pass an integer between 0 to 10. Defaults to 1. | 1 |
-| download | integer | Return resulting image with &#039;Content-Disposition: attachment &#039; headers for the browser to start downloading it. Pass 0 for no header, or 1 for otherwise. Default value is set to 0. | 0 |
+| download | boolean | Return resulting image with &#039;Content-Disposition: attachment &#039; headers for the browser to start downloading it. Pass 0 for no header, or 1 for otherwise. Default value is set to 0. |  |
 

@@ -16,10 +16,10 @@ class Database extends Service
      * of the project collections. [Learn more about different API
      * modes](/docs/admin).
      *
-     * @param string  $search
-     * @param int  $limit
-     * @param int  $offset
-     * @param string  $orderType
+     * @param string $search
+     * @param int $limit
+     * @param int $offset
+     * @param string $orderType
      * @throws Exception
      * @return array
      */
@@ -43,10 +43,10 @@ class Database extends Service
      *
      * Create a new Collection.
      *
-     * @param string  $name
-     * @param array  $read
-     * @param array  $write
-     * @param array  $rules
+     * @param string $name
+     * @param array $read
+     * @param array $write
+     * @param array $rules
      * @throws Exception
      * @return array
      */
@@ -71,7 +71,7 @@ class Database extends Service
      * Get collection by its unique ID. This endpoint response returns a JSON
      * object with the collection metadata.
      *
-     * @param string  $collectionId
+     * @param string $collectionId
      * @throws Exception
      * @return array
      */
@@ -91,11 +91,11 @@ class Database extends Service
      *
      * Update collection by its unique ID.
      *
-     * @param string  $collectionId
-     * @param string  $name
-     * @param array  $read
-     * @param array  $write
-     * @param array  $rules
+     * @param string $collectionId
+     * @param string $name
+     * @param array $read
+     * @param array $write
+     * @param array $rules
      * @throws Exception
      * @return array
      */
@@ -120,7 +120,7 @@ class Database extends Service
      * Delete a collection by its unique ID. Only users with write permissions
      * have access to delete this resource.
      *
-     * @param string  $collectionId
+     * @param string $collectionId
      * @throws Exception
      * @return array
      */
@@ -143,20 +143,18 @@ class Database extends Service
      * of the project documents. [Learn more about different API
      * modes](/docs/admin).
      *
-     * @param string  $collectionId
-     * @param array  $filters
-     * @param int  $offset
-     * @param int  $limit
-     * @param string  $orderField
-     * @param string  $orderType
-     * @param string  $orderCast
-     * @param string  $search
-     * @param int  $first
-     * @param int  $last
+     * @param string $collectionId
+     * @param array $filters
+     * @param int $offset
+     * @param int $limit
+     * @param string $orderField
+     * @param string $orderType
+     * @param string $orderCast
+     * @param string $search
      * @throws Exception
      * @return array
      */
-    public function listDocuments(string $collectionId, array $filters = [], int $offset = 0, int $limit = 50, string $orderField = '$id', string $orderType = 'ASC', string $orderCast = 'string', string $search = '', int $first = 0, int $last = 0):array
+    public function listDocuments(string $collectionId, array $filters = [], int $offset = 0, int $limit = 50, string $orderField = '$id', string $orderType = 'ASC', string $orderCast = 'string', string $search = ''):array
     {
         $path   = str_replace(['{collectionId}'], [$collectionId], '/database/collections/{collectionId}/documents');
         $params = [];
@@ -168,8 +166,6 @@ class Database extends Service
         $params['orderType'] = $orderType;
         $params['orderCast'] = $orderCast;
         $params['search'] = $search;
-        $params['first'] = $first;
-        $params['last'] = $last;
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -179,15 +175,18 @@ class Database extends Service
     /**
      * Create Document
      *
-     * Create a new Document.
+     * Create a new Document. Before using this route, you should create a new
+     * collection resource using either a [server
+     * integration](/docs/server/database?sdk=nodejs#createCollection) API or
+     * directly from your database console.
      *
-     * @param string  $collectionId
-     * @param array  $data
-     * @param array  $read
-     * @param array  $write
-     * @param string  $parentDocument
-     * @param string  $parentProperty
-     * @param string  $parentPropertyType
+     * @param string $collectionId
+     * @param array $data
+     * @param array $read
+     * @param array $write
+     * @param string $parentDocument
+     * @param string $parentProperty
+     * @param string $parentPropertyType
      * @throws Exception
      * @return array
      */
@@ -214,8 +213,8 @@ class Database extends Service
      * Get document by its unique ID. This endpoint response returns a JSON object
      * with the document data.
      *
-     * @param string  $collectionId
-     * @param string  $documentId
+     * @param string $collectionId
+     * @param string $documentId
      * @throws Exception
      * @return array
      */
@@ -233,11 +232,11 @@ class Database extends Service
     /**
      * Update Document
      *
-     * @param string  $collectionId
-     * @param string  $documentId
-     * @param array  $data
-     * @param array  $read
-     * @param array  $write
+     * @param string $collectionId
+     * @param string $documentId
+     * @param array $data
+     * @param array $read
+     * @param array $write
      * @throws Exception
      * @return array
      */
@@ -262,8 +261,8 @@ class Database extends Service
      * documents, his attributes and relations to other documents. Child documents
      * **will not** be deleted.
      *
-     * @param string  $collectionId
-     * @param string  $documentId
+     * @param string $collectionId
+     * @param string $documentId
      * @throws Exception
      * @return array
      */
@@ -277,23 +276,4 @@ class Database extends Service
             'content-type' => 'application/json',
         ], $params);
     }
-
-    /**
-     * Get Collection Logs
-     *
-     * @param string  $collectionId
-     * @throws Exception
-     * @return array
-     */
-    public function getCollectionLogs(string $collectionId):array
-    {
-        $path   = str_replace(['{collectionId}'], [$collectionId], '/database/collections/{collectionId}/logs');
-        $params = [];
-
-
-        return $this->client->call(Client::METHOD_GET, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
 }

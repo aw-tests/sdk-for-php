@@ -30,7 +30,7 @@ POST https://appwrite.io/v1/users
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | email | string | User email. |  |
-| password | string | User password. |  |
+| password | string | User password. Must be between 6 to 32 chars. |  |
 | name | string | User name. |  |
 
 ## Get User

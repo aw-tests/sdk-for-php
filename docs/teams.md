@@ -88,6 +88,10 @@ GET https://appwrite.io/v1/teams/{teamId}/memberships
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team unique ID. |  |
+| search | string | Search term to filter your list results. |  |
+| limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
+| offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Team Membership
 
@@ -97,7 +101,7 @@ POST https://appwrite.io/v1/teams/{teamId}/memberships
 
 ** Use this endpoint to invite a new member to join your team. An email with a link to join the team will be sent to the new member email address if the member doesn&#039;t exist in the project it will be created automatically.
 
-Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/teams#updateMembershipStatus) endpoint to allow the user to accept the invitation to the team.
+Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/client/teams#updateMembershipStatus) endpoint to allow the user to accept the invitation to the team.
 
 Please note that in order to avoid a [Redirect Attacks](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URL&#039;s are the once from domains you have set when added your platforms in the console interface. **
 
@@ -109,7 +113,7 @@ Please note that in order to avoid a [Redirect Attacks](https://github.com/OWASP
 | email | string | New team member email. |  |
 | name | string | New team member name. |  |
 | roles | array | Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). |  |
-| url | string | URL to redirect the user back to your app from the invitation email. |  |
+| url | string | URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API. |  |
 
 ## Delete Team Membership
 
