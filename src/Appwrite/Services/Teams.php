@@ -13,7 +13,8 @@ class Teams extends Service
      *
      * Get a list of all the current user teams. You can use the query params to
      * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project teams. [Learn more about different API modes](/docs/admin).
+     * of the project's teams. [Learn more about different API
+     * modes](/docs/admin).
      *
      * @param string $search
      * @param int $limit
@@ -66,7 +67,7 @@ class Teams extends Service
     /**
      * Get Team
      *
-     * Get team by its unique ID. All team members have read access for this
+     * Get a team by its unique ID. All team members have read access for this
      * resource.
      *
      * @param string $teamId
@@ -87,7 +88,7 @@ class Teams extends Service
     /**
      * Update Team
      *
-     * Update team by its unique ID. Only team owners have write access for this
+     * Update a team by its unique ID. Only team owners have write access for this
      * resource.
      *
      * @param string $teamId
@@ -110,7 +111,7 @@ class Teams extends Service
     /**
      * Delete Team
      *
-     * Delete team by its unique ID. Only team owners have write access for this
+     * Delete a team by its unique ID. Only team owners have write access for this
      * resource.
      *
      * @param string $teamId
@@ -131,7 +132,7 @@ class Teams extends Service
     /**
      * Get Team Memberships
      *
-     * Get team members by the team unique ID. All team members have read access
+     * Get a team members by the team unique ID. All team members have read access
      * for this list of resources.
      *
      * @param string $teamId
@@ -202,7 +203,7 @@ class Teams extends Service
      *
      * This endpoint allows a user to leave a team or for a team owner to delete
      * the membership of any other team member. You can also use this endpoint to
-     * delete a user membership even if he didn't accept it.
+     * delete a user membership even if it is not accepted.
      *
      * @param string $teamId
      * @param string $inviteId

@@ -13,7 +13,7 @@ class Database extends Service
      *
      * Get a list of all the user collections. You can use the query params to
      * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project collections. [Learn more about different API
+     * of the project's collections. [Learn more about different API
      * modes](/docs/admin).
      *
      * @param string $search
@@ -68,7 +68,7 @@ class Database extends Service
     /**
      * Get Collection
      *
-     * Get collection by its unique ID. This endpoint response returns a JSON
+     * Get a collection by its unique ID. This endpoint response returns a JSON
      * object with the collection metadata.
      *
      * @param string $collectionId
@@ -89,7 +89,7 @@ class Database extends Service
     /**
      * Update Collection
      *
-     * Update collection by its unique ID.
+     * Update a collection by its unique ID.
      *
      * @param string $collectionId
      * @param string $name
@@ -140,13 +140,13 @@ class Database extends Service
      *
      * Get a list of all the user documents. You can use the query params to
      * filter your results. On admin mode, this endpoint will return a list of all
-     * of the project documents. [Learn more about different API
+     * of the project's documents. [Learn more about different API
      * modes](/docs/admin).
      *
      * @param string $collectionId
      * @param array $filters
-     * @param int $offset
      * @param int $limit
+     * @param int $offset
      * @param string $orderField
      * @param string $orderType
      * @param string $orderCast
@@ -154,14 +154,14 @@ class Database extends Service
      * @throws Exception
      * @return array
      */
-    public function listDocuments(string $collectionId, array $filters = [], int $offset = 0, int $limit = 50, string $orderField = '$id', string $orderType = 'ASC', string $orderCast = 'string', string $search = ''):array
+    public function listDocuments(string $collectionId, array $filters = [], int $limit = 25, int $offset = 0, string $orderField = '', string $orderType = 'ASC', string $orderCast = 'string', string $search = ''):array
     {
         $path   = str_replace(['{collectionId}'], [$collectionId], '/database/collections/{collectionId}/documents');
         $params = [];
 
         $params['filters'] = $filters;
-        $params['offset'] = $offset;
         $params['limit'] = $limit;
+        $params['offset'] = $offset;
         $params['orderField'] = $orderField;
         $params['orderType'] = $orderType;
         $params['orderCast'] = $orderCast;
@@ -210,8 +210,8 @@ class Database extends Service
     /**
      * Get Document
      *
-     * Get document by its unique ID. This endpoint response returns a JSON object
-     * with the document data.
+     * Get a document by its unique ID. This endpoint response returns a JSON
+     * object with the document data.
      *
      * @param string $collectionId
      * @param string $documentId
@@ -231,6 +231,9 @@ class Database extends Service
 
     /**
      * Update Document
+     *
+     * Update a document by its unique ID. Using the patch method you can pass
+     * only specific fields that will get updated.
      *
      * @param string $collectionId
      * @param string $documentId
@@ -257,8 +260,8 @@ class Database extends Service
     /**
      * Delete Document
      *
-     * Delete document by its unique ID. This endpoint deletes only the parent
-     * documents, his attributes and relations to other documents. Child documents
+     * Delete a document by its unique ID. This endpoint deletes only the parent
+     * documents, its attributes and relations to other documents. Child documents
      * **will not** be deleted.
      *
      * @param string $collectionId

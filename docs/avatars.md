@@ -23,13 +23,13 @@ GET https://appwrite.io/v1/avatars/browsers/{code}
 GET https://appwrite.io/v1/avatars/credit-cards/{code}
 ```
 
-** Need to display your users with your billing method or their payment methods? The credit card endpoint will return you the icon of the credit card provider you need. Use width, height and quality arguments to change the output settings. **
+** The credit card endpoint will return you the icon of the credit card provider you need. Use width, height and quality arguments to change the output settings. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| code | string | **Required** Credit Card Code. Possible values: amex, argencard, cabal, censosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa. |  |
+| code | string | **Required** Credit Card Code. Possible values: amex, argencard, cabal, censosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa, mir, maestro. |  |
 | width | integer | Image width. Pass an integer between 0 to 2000. Defaults to 100. | 100 |
 | height | integer | Image height. Pass an integer between 0 to 2000. Defaults to 100. | 100 |
 | quality | integer | Image quality. Pass an integer between 0 to 100. Defaults to 100. | 100 |
@@ -40,7 +40,8 @@ GET https://appwrite.io/v1/avatars/credit-cards/{code}
 GET https://appwrite.io/v1/avatars/favicon
 ```
 
-** Use this endpoint to fetch the favorite icon (AKA favicon) of a  any remote website URL. **
+** Use this endpoint to fetch the favorite icon (AKA favicon) of any remote website URL.
+ **
 
 ### Parameters
 
@@ -95,7 +96,7 @@ You can use the color and background params to change the avatar colors. By defa
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| name | string | Full Name. When empty, current user name or email will be used. |  |
+| name | string | Full Name. When empty, current user name or email will be used. Max length: 128 chars. |  |
 | width | integer | Image width. Pass an integer between 0 to 2000. Defaults to 100. | 500 |
 | height | integer | Image height. Pass an integer between 0 to 2000. Defaults to 100. | 500 |
 | color | string | Changes text color. By default a random color will be picked and stay will persistent to the given name. |  |
