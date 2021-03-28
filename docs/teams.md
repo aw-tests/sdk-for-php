@@ -101,7 +101,7 @@ POST https://appwrite.io/v1/teams/{teamId}/memberships
 
 ** Use this endpoint to invite a new member to join your team. An email with a link to join the team will be sent to the new member email address if the member doesn&#039;t exist in the project it will be created automatically.
 
-Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/client/teams#updateMembershipStatus) endpoint to allow the user to accept the invitation to the team.
+Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow the user to accept the invitation to the team.
 
 Please note that in order to avoid a [Redirect Attacks](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URL&#039;s are the once from domains you have set when added your platforms in the console interface. **
 
@@ -129,4 +129,21 @@ DELETE https://appwrite.io/v1/teams/{teamId}/memberships/{inviteId}
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team unique ID. |  |
 | inviteId | string | **Required** Invite unique ID. |  |
+
+## Update Team Membership Status
+
+```http request
+PATCH https://appwrite.io/v1/teams/{teamId}/memberships/{inviteId}/status
+```
+
+** Use this endpoint to allow a user to accept an invitation to join a team after being redirected back to your app from the invitation email recieved by the user. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| teamId | string | **Required** Team unique ID. |  |
+| inviteId | string | **Required** Invite unique ID. |  |
+| userId | string | User unique ID. |  |
+| secret | string | Secret key. |  |
 

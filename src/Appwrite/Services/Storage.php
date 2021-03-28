@@ -50,7 +50,7 @@ class Storage extends Service
      * @throws Exception
      * @return array
      */
-    public function createFile(\CurlFile $file, array $read, array $write):array
+    public function createFile(\CurlFile $file, array $read = [], array $write = []):array
     {
         $path   = str_replace([], [], '/storage/files');
         $params = [];

@@ -99,7 +99,7 @@ class Database extends Service
      * @throws Exception
      * @return array
      */
-    public function updateCollection(string $collectionId, string $name, array $read, array $write, array $rules = []):array
+    public function updateCollection(string $collectionId, string $name, array $read = [], array $write = [], array $rules = []):array
     {
         $path   = str_replace(['{collectionId}'], [$collectionId], '/database/collections/{collectionId}');
         $params = [];
@@ -177,7 +177,7 @@ class Database extends Service
      *
      * Create a new Document. Before using this route, you should create a new
      * collection resource using either a [server
-     * integration](/docs/server/database?sdk=nodejs#createCollection) API or
+     * integration](/docs/server/database#databaseCreateCollection) API or
      * directly from your database console.
      *
      * @param string $collectionId
@@ -190,7 +190,7 @@ class Database extends Service
      * @throws Exception
      * @return array
      */
-    public function createDocument(string $collectionId, array $data, array $read, array $write, string $parentDocument = '', string $parentProperty = '', string $parentPropertyType = 'assign'):array
+    public function createDocument(string $collectionId, array $data, array $read = [], array $write = [], string $parentDocument = '', string $parentProperty = '', string $parentPropertyType = 'assign'):array
     {
         $path   = str_replace(['{collectionId}'], [$collectionId], '/database/collections/{collectionId}/documents');
         $params = [];
@@ -243,7 +243,7 @@ class Database extends Service
      * @throws Exception
      * @return array
      */
-    public function updateDocument(string $collectionId, string $documentId, array $data, array $read, array $write):array
+    public function updateDocument(string $collectionId, string $documentId, array $data, array $read = [], array $write = []):array
     {
         $path   = str_replace(['{collectionId}', '{documentId}'], [$collectionId, $documentId], '/database/collections/{collectionId}/documents/{documentId}');
         $params = [];

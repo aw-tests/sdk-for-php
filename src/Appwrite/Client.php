@@ -2,8 +2,6 @@
 
 namespace Appwrite;
 
-use Exception;
-
 class Client
 {
     const METHOD_GET = 'GET';
@@ -37,7 +35,7 @@ class Client
      */
     protected $headers = [
         'content-type' => '',
-        'x-sdk-version' => 'appwrite:php:1.1.0',
+        'x-sdk-version' => 'appwrite:php:2.0.0',
     ];
 
     /**
@@ -76,6 +74,22 @@ class Client
     public function setKey($value)
     {
         $this->addHeader('X-Appwrite-Key', $value);
+
+        return $this;
+    }
+
+    /**
+     * Set JWT
+     *
+     * Your secret JSON Web Token
+     *
+     * @param string $value
+     *
+     * @return Client
+     */
+    public function setJWT($value)
+    {
+        $this->addHeader('X-Appwrite-JWT', $value);
 
         return $this;
     }
@@ -138,7 +152,7 @@ class Client
      * @param array $params
      * @param array $headers
      * @return array|string
-     * @throws Exception
+     * @throws AppwriteException
      */
     public function call($method, $path = '', $headers = array(), array $params = array())
     {
@@ -206,11 +220,16 @@ class Client
             break;
         }
 
-        if ((curl_errno($ch)/* || 200 != $responseStatus*/)) {
-            throw new Exception(curl_error($ch) . ' with status code ' . $responseStatus, $responseStatus);
+        if (curl_errno($ch)) {
+            throw new AppwriteException(curl_error($ch), $responseStatus, $responseBody);
+        }
+        
+        curl_close($ch);
+
+        if($responseStatus >= 400) {
+            throw new AppwriteException($responseBody['message'], $responseStatus, $responseBody);
         }
 
-        curl_close($ch);
 
         return $responseBody;
     }
