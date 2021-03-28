@@ -1,7 +1,7 @@
 # Appwrite PHP SDK
 
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-php.svg?v=1)
-![Version](https://img.shields.io/badge/api%20version-0.7.2-blue.svg?v=1)
+![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?v=1)
 
 **This SDK is compatible with Appwrite server version 0.8.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-php/releases).**
 
