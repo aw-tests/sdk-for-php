@@ -123,14 +123,15 @@ class Account extends Service
      * Update Account Password
      *
      * Update currently logged in user password. For validation, user is required
-     * to pass the password twice.
+     * to pass in the new password, and the old password. For users created with
+     * OAuth and Team Invites, oldPassword is optional.
      *
      * @param string $password
      * @param string $oldPassword
      * @throws Exception
      * @return array
      */
-    public function updatePassword(string $password, string $oldPassword):array
+    public function updatePassword(string $password, string $oldPassword = ''):array
     {
         $path   = str_replace([], [], '/account/password');
         $params = [];
@@ -193,7 +194,8 @@ class Account extends Service
      * attached to the URL query string. Use the query string params to submit a
      * request to the [PUT
      * /account/recovery](/docs/client/account#accountUpdateRecovery) endpoint to
-     * complete the process.
+     * complete the process. The verification link sent to the user's email
+     * address is valid for 1 hour.
      *
      * @param string $email
      * @param string $url
@@ -320,7 +322,8 @@ class Account extends Service
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateVerification). 
+     * process](/docs/client/account#accountUpdateVerification). The verification
+     * link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
