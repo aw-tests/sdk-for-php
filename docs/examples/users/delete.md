@@ -13,4 +13,4 @@ $client
 
 $users = new Users($client);
 
-$result = $users->deleteUser('[USER_ID]');
+$result = $users->delete('[USER_ID]');

@@ -43,6 +43,7 @@ class Client
      */
     public function __construct()
     {
+        $this->headers['X-Appwrite-Response-Format'] = '0.8.0';
  
     }
 
@@ -227,7 +228,11 @@ class Client
         curl_close($ch);
 
         if($responseStatus >= 400) {
-            throw new AppwriteException($responseBody['message'], $responseStatus, $responseBody);
+            if(is_array($responseBody)) {
+                throw new AppwriteException($responseBody['message'], $responseStatus, $responseBody);
+            } else {
+                throw new AppwriteException($responseBody, $responseStatus);
+            }
         }
 
 

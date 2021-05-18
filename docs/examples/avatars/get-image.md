@@ -13,4 +13,4 @@ $client
 
 $avatars = new Avatars($client);
 
-$result = $avatars->getImage('https://example.com');
+$result = $avatars->getImage('');

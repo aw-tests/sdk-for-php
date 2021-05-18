@@ -90,7 +90,7 @@ class Users extends Service
      * @throws Exception
      * @return array
      */
-    public function deleteUser(string $userId):array
+    public function delete(string $userId):array
     {
         $path   = str_replace(['{userId}'], [$userId], '/users/{userId}');
         $params = [];

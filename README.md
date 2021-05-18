@@ -1,7 +1,9 @@
 # Appwrite PHP SDK
 
-![License](https://img.shields.io/github/license/appwrite/sdk-for-php.svg?v=1)
-![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?v=1)
+![License](https://img.shields.io/github/license/appwrite/sdk-for-php.svg?style=flat-square&v=1)
+![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?style=flat-square&v=1)
+[![Twitter Account](https://img.shields.io/twitter/follow/appwrite_io?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite_io)
+[![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
 **This SDK is compatible with Appwrite server version 0.8.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-php/releases).**
 
@@ -32,6 +34,7 @@ $client
     ->setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     ->setProject('5df5acd0d48c2') // Your project ID
     ->setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+    ->setSelfSigned() // Use only on dev mode with a self-signed SSL cert
 ;
 ```
 
@@ -55,6 +58,7 @@ $client
     ->setEndpoint('https://[HOSTNAME_OR_IP]/v1') // Your API Endpoint
     ->setProject('5df5acd0d48c2') // Your project ID
     ->setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
+    ->setSelfSigned() // Use only on dev mode with a self-signed SSL cert
 ;
 
 $users = new Users($client);

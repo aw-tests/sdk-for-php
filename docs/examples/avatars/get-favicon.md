@@ -13,4 +13,4 @@ $client
 
 $avatars = new Avatars($client);
 
-$result = $avatars->getFavicon('https://example.com');
+$result = $avatars->getFavicon('');

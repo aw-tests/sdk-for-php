@@ -13,4 +13,4 @@ $client
 
 $account = new Account($client);
 
-$result = $account->updateEmail('email@example.com', 'password');
+$result = $account->updateEmail('', 'password');
