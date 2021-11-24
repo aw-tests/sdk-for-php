@@ -13,4 +13,4 @@ $client
 
 $database = new Database($client);
 
-$result = $database->updateCollection('[COLLECTION_ID]', '[NAME]', 'document');
+$result = $database->createIndex('[COLLECTION_ID]', '', 'key', []);

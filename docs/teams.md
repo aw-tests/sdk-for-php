@@ -15,6 +15,8 @@ GET https://appwrite.io/v1/teams
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| cursor | string | ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Team
@@ -29,6 +31,7 @@ POST https://appwrite.io/v1/teams
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| teamId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | name | string | Team name. Max length: 128 chars. |  |
 | roles | array | Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars. | [&quot;owner&quot;] |
 
@@ -91,6 +94,8 @@ GET https://appwrite.io/v1/teams/{teamId}/memberships
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| cursor | string | ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Team Membership
@@ -99,9 +104,9 @@ GET https://appwrite.io/v1/teams/{teamId}/memberships
 POST https://appwrite.io/v1/teams/{teamId}/memberships
 ```
 
-** Use this endpoint to invite a new member to join your team. An email with a link to join the team will be sent to the new member email address if the member doesn&#039;t exist in the project it will be created automatically.
+** Use this endpoint to invite a new member to join your team. If initiated from Client SDK, an email with a link to join the team will be sent to the new member&#039;s email address if the member doesn&#039;t exist in the project it will be created automatically. If initiated from server side SDKs, new member will automatically be added to the team.
 
-Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow the user to accept the invitation to the team.
+Use the &#039;URL&#039; parameter to redirect the user from the invitation email back to your app. When the user is redirected, use the [Update Team Membership Status](/docs/client/teams#teamsUpdateMembershipStatus) endpoint to allow the user to accept the invitation to the team.  While calling from side SDKs the redirect url can be empty string.
 
 Please note that in order to avoid a [Redirect Attacks](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URL&#039;s are the once from domains you have set when added your platforms in the console interface. **
 
@@ -111,9 +116,24 @@ Please note that in order to avoid a [Redirect Attacks](https://github.com/OWASP
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team unique ID. |  |
 | email | string | New team member email. |  |
-| name | string | New team member name. Max length: 128 chars. |  |
 | roles | array | Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars. |  |
 | url | string | URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API. |  |
+| name | string | New team member name. Max length: 128 chars. |  |
+
+## Get Team Membership
+
+```http request
+GET https://appwrite.io/v1/teams/{teamId}/memberships/{membershipId}
+```
+
+** Get a team member by the membership unique id. All team members have read access for this resource. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| teamId | string | **Required** Team unique ID. |  |
+| membershipId | string | **Required** membership unique ID. |  |
 
 ## Update Membership Roles
 

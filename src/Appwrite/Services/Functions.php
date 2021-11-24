@@ -2,7 +2,7 @@
 
 namespace Appwrite\Services;
 
-use Exception;
+use Appwrite\AppwriteException;
 use Appwrite\Client;
 use Appwrite\Service;
 
@@ -17,19 +17,40 @@ class Functions extends Service
      * @param string $search
      * @param int $limit
      * @param int $offset
+     * @param string $cursor
+     * @param string $cursorDirection
      * @param string $orderType
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function list(string $search = '', int $limit = 25, int $offset = 0, string $orderType = 'ASC'):array
+    public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/functions');
         $params = [];
 
-        $params['search'] = $search;
-        $params['limit'] = $limit;
-        $params['offset'] = $offset;
-        $params['orderType'] = $orderType;
+        if (!is_null($search)) {
+            $params['search'] = $search;
+        }
+
+        if (!is_null($limit)) {
+            $params['limit'] = $limit;
+        }
+
+        if (!is_null($offset)) {
+            $params['offset'] = $offset;
+        }
+
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
+        }
+
+        if (!is_null($orderType)) {
+            $params['orderType'] = $orderType;
+        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -43,28 +64,69 @@ class Functions extends Service
      * [permissions](/docs/permissions) to allow different project users or team
      * with access to execute the function using the client API.
      *
+     * @param string $functionId
      * @param string $name
      * @param array $execute
-     * @param string $env
+     * @param string $runtime
      * @param array $vars
      * @param array $events
      * @param string $schedule
      * @param int $timeout
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function create(string $name, array $execute, string $env, array $vars = [], array $events = [], string $schedule = '', int $timeout = 15):array
+    public function create(string $functionId, string $name, array $execute, string $runtime, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($name)) {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        if (!isset($execute)) {
+            throw new AppwriteException('Missing required parameter: "execute"');
+        }
+
+        if (!isset($runtime)) {
+            throw new AppwriteException('Missing required parameter: "runtime"');
+        }
+
         $path   = str_replace([], [], '/functions');
         $params = [];
 
-        $params['name'] = $name;
-        $params['execute'] = $execute;
-        $params['env'] = $env;
-        $params['vars'] = $vars;
-        $params['events'] = $events;
-        $params['schedule'] = $schedule;
-        $params['timeout'] = $timeout;
+        if (!is_null($functionId)) {
+            $params['functionId'] = $functionId;
+        }
+
+        if (!is_null($name)) {
+            $params['name'] = $name;
+        }
+
+        if (!is_null($execute)) {
+            $params['execute'] = $execute;
+        }
+
+        if (!is_null($runtime)) {
+            $params['runtime'] = $runtime;
+        }
+
+        if (!is_null($vars)) {
+            $params['vars'] = $vars;
+        }
+
+        if (!is_null($events)) {
+            $params['events'] = $events;
+        }
+
+        if (!is_null($schedule)) {
+            $params['schedule'] = $schedule;
+        }
+
+        if (!is_null($timeout)) {
+            $params['timeout'] = $timeout;
+        }
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -77,14 +139,17 @@ class Functions extends Service
      * Get a function by its unique ID.
      *
      * @param string $functionId
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function get(string $functionId):array
+    public function get(string $functionId): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}');
         $params = [];
-
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -103,20 +168,49 @@ class Functions extends Service
      * @param array $events
      * @param string $schedule
      * @param int $timeout
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function update(string $functionId, string $name, array $execute, array $vars = [], array $events = [], string $schedule = '', int $timeout = 15):array
+    public function update(string $functionId, string $name, array $execute, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($name)) {
+            throw new AppwriteException('Missing required parameter: "name"');
+        }
+
+        if (!isset($execute)) {
+            throw new AppwriteException('Missing required parameter: "execute"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}');
         $params = [];
 
-        $params['name'] = $name;
-        $params['execute'] = $execute;
-        $params['vars'] = $vars;
-        $params['events'] = $events;
-        $params['schedule'] = $schedule;
-        $params['timeout'] = $timeout;
+        if (!is_null($name)) {
+            $params['name'] = $name;
+        }
+
+        if (!is_null($execute)) {
+            $params['execute'] = $execute;
+        }
+
+        if (!is_null($vars)) {
+            $params['vars'] = $vars;
+        }
+
+        if (!is_null($events)) {
+            $params['events'] = $events;
+        }
+
+        if (!is_null($schedule)) {
+            $params['schedule'] = $schedule;
+        }
+
+        if (!is_null($timeout)) {
+            $params['timeout'] = $timeout;
+        }
 
         return $this->client->call(Client::METHOD_PUT, $path, [
             'content-type' => 'application/json',
@@ -129,14 +223,17 @@ class Functions extends Service
      * Delete a function by its unique ID.
      *
      * @param string $functionId
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function delete(string $functionId):array
+    public function delete(string $functionId): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}');
         $params = [];
-
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -152,22 +249,42 @@ class Functions extends Service
      * different API modes](/docs/admin).
      *
      * @param string $functionId
-     * @param string $search
      * @param int $limit
      * @param int $offset
-     * @param string $orderType
-     * @throws Exception
+     * @param string $search
+     * @param string $cursor
+     * @param string $cursorDirection
+     * @throws AppwriteException
      * @return array
      */
-    public function listExecutions(string $functionId, string $search = '', int $limit = 25, int $offset = 0, string $orderType = 'ASC'):array
+    public function listExecutions(string $functionId, int $limit = null, int $offset = null, string $search = null, string $cursor = null, string $cursorDirection = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/executions');
         $params = [];
 
-        $params['search'] = $search;
-        $params['limit'] = $limit;
-        $params['offset'] = $offset;
-        $params['orderType'] = $orderType;
+        if (!is_null($limit)) {
+            $params['limit'] = $limit;
+        }
+
+        if (!is_null($offset)) {
+            $params['offset'] = $offset;
+        }
+
+        if (!is_null($search)) {
+            $params['search'] = $search;
+        }
+
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
+        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -184,15 +301,21 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $data
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function createExecution(string $functionId, string $data = ''):array
+    public function createExecution(string $functionId, string $data = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/executions');
         $params = [];
 
-        $params['data'] = $data;
+        if (!is_null($data)) {
+            $params['data'] = $data;
+        }
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -206,14 +329,21 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $executionId
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function getExecution(string $functionId, string $executionId):array
+    public function getExecution(string $functionId, string $executionId): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($executionId)) {
+            throw new AppwriteException('Missing required parameter: "executionId"');
+        }
+
         $path   = str_replace(['{functionId}', '{executionId}'], [$functionId, $executionId], '/functions/{functionId}/executions/{executionId}');
         $params = [];
-
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -229,15 +359,25 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $tag
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function updateTag(string $functionId, string $tag):array
+    public function updateTag(string $functionId, string $tag): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($tag)) {
+            throw new AppwriteException('Missing required parameter: "tag"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tag');
         $params = [];
 
-        $params['tag'] = $tag;
+        if (!is_null($tag)) {
+            $params['tag'] = $tag;
+        }
 
         return $this->client->call(Client::METHOD_PATCH, $path, [
             'content-type' => 'application/json',
@@ -254,19 +394,44 @@ class Functions extends Service
      * @param string $search
      * @param int $limit
      * @param int $offset
+     * @param string $cursor
+     * @param string $cursorDirection
      * @param string $orderType
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function listTags(string $functionId, string $search = '', int $limit = 25, int $offset = 0, string $orderType = 'ASC'):array
+    public function listTags(string $functionId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tags');
         $params = [];
 
-        $params['search'] = $search;
-        $params['limit'] = $limit;
-        $params['offset'] = $offset;
-        $params['orderType'] = $orderType;
+        if (!is_null($search)) {
+            $params['search'] = $search;
+        }
+
+        if (!is_null($limit)) {
+            $params['limit'] = $limit;
+        }
+
+        if (!is_null($offset)) {
+            $params['offset'] = $offset;
+        }
+
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
+        }
+
+        if (!is_null($orderType)) {
+            $params['orderType'] = $orderType;
+        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -290,16 +455,33 @@ class Functions extends Service
      * @param string $functionId
      * @param string $command
      * @param \CurlFile $code
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function createTag(string $functionId, string $command, \CurlFile $code):array
+    public function createTag(string $functionId, string $command, \CurlFile $code): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($command)) {
+            throw new AppwriteException('Missing required parameter: "command"');
+        }
+
+        if (!isset($code)) {
+            throw new AppwriteException('Missing required parameter: "code"');
+        }
+
         $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tags');
         $params = [];
 
-        $params['command'] = $command;
-        $params['code'] = $code;
+        if (!is_null($command)) {
+            $params['command'] = $command;
+        }
+
+        if (!is_null($code)) {
+            $params['code'] = $code;
+        }
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'multipart/form-data',
@@ -313,14 +495,21 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $tagId
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function getTag(string $functionId, string $tagId):array
+    public function getTag(string $functionId, string $tagId): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($tagId)) {
+            throw new AppwriteException('Missing required parameter: "tagId"');
+        }
+
         $path   = str_replace(['{functionId}', '{tagId}'], [$functionId, $tagId], '/functions/{functionId}/tags/{tagId}');
         $params = [];
-
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -334,14 +523,21 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $tagId
-     * @throws Exception
+     * @throws AppwriteException
      * @return array
      */
-    public function deleteTag(string $functionId, string $tagId):array
+    public function deleteTag(string $functionId, string $tagId): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($tagId)) {
+            throw new AppwriteException('Missing required parameter: "tagId"');
+        }
+
         $path   = str_replace(['{functionId}', '{tagId}'], [$functionId, $tagId], '/functions/{functionId}/tags/{tagId}');
         $params = [];
-
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',

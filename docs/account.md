@@ -106,7 +106,7 @@ POST https://appwrite.io/v1/account/recovery
 | email | string | User email. |  |
 | url | string | URL to redirect the user back to your app from the recovery email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API. |  |
 
-## Complete Password Recovery
+## Create Password Recovery (confirmation)
 
 ```http request
 PUT https://appwrite.io/v1/account/recovery
@@ -141,6 +141,20 @@ DELETE https://appwrite.io/v1/account/sessions
 
 ** Delete all sessions from the user account and remove any sessions cookies from the end client. **
 
+## Get Session By ID
+
+```http request
+GET https://appwrite.io/v1/account/sessions/{sessionId}
+```
+
+** Use this endpoint to get a logged in user&#039;s session using a Session ID. Inputting &#039;current&#039; will return the current session being used. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| sessionId | string | **Required** Session unique ID. Use the string &#039;current&#039; to get the current device session. |  |
+
 ## Delete Account Session
 
 ```http request
@@ -172,7 +186,7 @@ Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/
 | --- | --- | --- | --- |
 | url | string | URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API. |  |
 
-## Complete Email Verification
+## Create Email Verification (confirmation)
 
 ```http request
 PUT https://appwrite.io/v1/account/verification

@@ -15,6 +15,8 @@ GET https://appwrite.io/v1/functions
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| cursor | string | ID of the function used as the starting point for the query, excluding the function itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Function
@@ -29,9 +31,10 @@ POST https://appwrite.io/v1/functions
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| functionId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | name | string | Function name. Max length: 128 chars. |  |
 | execute | array | An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| env | string | Execution enviornment. |  |
+| runtime | string | Execution runtime. |  |
 | vars | object | Key-value JSON object. | {} |
 | events | array | Events list. | [] |
 | schedule | string | Schedule CRON syntax. |  |
@@ -98,10 +101,11 @@ GET https://appwrite.io/v1/functions/{functionId}/executions
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function unique ID. |  |
-| search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
-| orderType | string | Order result by ASC or DESC order. | ASC |
+| search | string | Search term to filter your list results. Max length: 256 chars. |  |
+| cursor | string | ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 
 ## Create Execution
 
@@ -164,6 +168,8 @@ GET https://appwrite.io/v1/functions/{functionId}/tags
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| cursor | string | ID of the tag used as the starting point for the query, excluding the tag itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Tag

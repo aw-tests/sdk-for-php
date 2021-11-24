@@ -35,7 +35,7 @@ class Client
      */
     protected $headers = [
         'content-type' => '',
-        'x-sdk-version' => 'appwrite:php:2.1.0',
+        'x-sdk-version' => 'appwrite:php:2.3.2',
     ];
 
     /**
@@ -43,7 +43,7 @@ class Client
      */
     public function __construct()
     {
-        $this->headers['X-Appwrite-Response-Format'] = '0.8.0';
+        $this->headers['X-Appwrite-Response-Format'] = '0.11.0';
  
     }
 
@@ -138,7 +138,7 @@ class Client
      */
     public function addHeader($key, $value)
     {
-        $this->headers[strtolower($key)] = strtolower($value);
+        $this->headers[strtolower($key)] = $value;
         
         return $this;
     }

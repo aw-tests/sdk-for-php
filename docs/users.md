@@ -15,6 +15,8 @@ GET https://appwrite.io/v1/users
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
+| cursor | string | ID of the user used as the starting point for the query, excluding the user itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create User
@@ -29,6 +31,7 @@ POST https://appwrite.io/v1/users
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| userId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | email | string | User email. |  |
 | password | string | User password. Must be between 6 to 32 chars. |  |
 | name | string | User name. Max length: 128 chars. |  |
@@ -61,19 +64,64 @@ DELETE https://appwrite.io/v1/users/{userId}
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
 
-## Get User Logs
+## Update Email
 
 ```http request
-GET https://appwrite.io/v1/users/{userId}/logs
+PATCH https://appwrite.io/v1/users/{userId}/email
 ```
 
-** Get a user activity logs list by its unique ID. **
+** Update the user email by its unique ID. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
+| email | string | User email. |  |
+
+## Get User Logs
+
+```http request
+GET https://appwrite.io/v1/users/{userId}/logs
+```
+
+** Get the user activity logs list by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User unique ID. |  |
+
+## Update Name
+
+```http request
+PATCH https://appwrite.io/v1/users/{userId}/name
+```
+
+** Update the user name by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User unique ID. |  |
+| name | string | User name. Max length: 128 chars. |  |
+
+## Update Password
+
+```http request
+PATCH https://appwrite.io/v1/users/{userId}/password
+```
+
+** Update the user password by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User unique ID. |  |
+| password | string | New user password. Must be between 6 to 32 chars. |  |
 
 ## Get User Preferences
 
@@ -160,5 +208,20 @@ PATCH https://appwrite.io/v1/users/{userId}/status
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
-| status | integer | User Status code. To activate the user pass 1, to block the user pass 2 and for disabling the user pass 0 |  |
+| status | boolean | User Status. To activate the user pass `true` and to block the user pass `false` |  |
+
+## Update Email Verification
+
+```http request
+PATCH https://appwrite.io/v1/users/{userId}/verification
+```
+
+** Update the user email verification status by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User unique ID. |  |
+| emailVerification | boolean | User Email Verification Status. |  |
 
