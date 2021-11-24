@@ -67,12 +67,12 @@ class Database extends Service
      * @param string $collectionId
      * @param string $name
      * @param string $permission
-     * @param string $read
-     * @param string $write
+     * @param array $read
+     * @param array $write
      * @throws AppwriteException
      * @return array
      */
-    public function createCollection(string $collectionId, string $name, string $permission, string $read, string $write): array
+    public function createCollection(string $collectionId, string $name, string $permission, array $read, array $write): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -154,12 +154,12 @@ class Database extends Service
      * @param string $collectionId
      * @param string $name
      * @param string $permission
-     * @param string $read
-     * @param string $write
+     * @param array $read
+     * @param array $write
      * @throws AppwriteException
      * @return array
      */
-    public function updateCollection(string $collectionId, string $name, string $permission, string $read = null, string $write = null): array
+    public function updateCollection(string $collectionId, string $name, string $permission, array $read = null, array $write = null): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -819,12 +819,12 @@ class Database extends Service
      * @param string $collectionId
      * @param string $documentId
      * @param array $data
-     * @param string $read
-     * @param string $write
+     * @param array $read
+     * @param array $write
      * @throws AppwriteException
      * @return array
      */
-    public function createDocument(string $collectionId, string $documentId, array $data, string $read = null, string $write = null): array
+    public function createDocument(string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -900,12 +900,12 @@ class Database extends Service
      * @param string $collectionId
      * @param string $documentId
      * @param array $data
-     * @param string $read
-     * @param string $write
+     * @param array $read
+     * @param array $write
      * @throws AppwriteException
      * @return array
      */
-    public function updateDocument(string $collectionId, string $documentId, array $data, string $read = null, string $write = null): array
+    public function updateDocument(string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');

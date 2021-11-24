@@ -40,6 +40,13 @@ GET https://appwrite.io/v1/account/logs
 
 ** Get currently logged in user list of latest security activity logs. Each log returns user IP address, location and date and time of log. **
 
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| limit | integer | Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
+| offset | integer | Offset value. The default value is 0. Use this param to manage pagination. | 0 |
+
 ## Update Account Name
 
 ```http request

@@ -34,8 +34,8 @@ POST https://appwrite.io/v1/database/collections
 | collectionId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | name | string | Collection name. Max length: 128 chars. |  |
 | permission | string | Permissions type model to use for reading documents in this collection. You can use collection-level permission set once on the collection using the `read` and `write` params, or you can set document-level permission where each document read and write params will decide who has access to read and write to each document individually. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| read | string | An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| write | string | An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| read | array | An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| write | array | An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 
 ## Get Collection
 
@@ -66,8 +66,8 @@ PUT https://appwrite.io/v1/database/collections/{collectionId}
 | collectionId | string | **Required** Collection unique ID. |  |
 | name | string | Collection name. Max length: 128 chars. |  |
 | permission | string | Permissions type model to use for reading documents in this collection. You can use collection-level permission set once on the collection using the `read` and `write` params, or you can set document-level permission where each document read and write params will decide who has access to read and write to each document individually. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| read | string | An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| write | string | An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| read | array | An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| write | array | An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 
 ## Delete Collection
 
@@ -312,8 +312,8 @@ POST https://appwrite.io/v1/database/collections/{collectionId}/documents
 | collectionId | string | **Required** Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection). |  |
 | documentId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | data | object | Document data as JSON object. |  |
-| read | string | An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| write | string | An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| read | array | An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| write | array | An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 
 ## Get Document
 
@@ -345,8 +345,8 @@ PATCH https://appwrite.io/v1/database/collections/{collectionId}/documents/{docu
 | collectionId | string | **Required** Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection). |  |
 | documentId | string | **Required** Document unique ID. |  |
 | data | object | Document data as JSON object. |  |
-| read | string | An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
-| write | string | An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| read | array | An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
+| write | array | An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 
 ## Delete Document
 

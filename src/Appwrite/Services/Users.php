@@ -191,10 +191,12 @@ class Users extends Service
      * Get the user activity logs list by its unique ID.
      *
      * @param string $userId
+     * @param int $limit
+     * @param int $offset
      * @throws AppwriteException
      * @return array
      */
-    public function getLogs(string $userId): array
+    public function getLogs(string $userId, int $limit = null, int $offset = null): array
     {
         if (!isset($userId)) {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -202,6 +204,14 @@ class Users extends Service
 
         $path   = str_replace(['{userId}'], [$userId], '/users/{userId}/logs');
         $params = [];
+
+        if (!is_null($limit)) {
+            $params['limit'] = $limit;
+        }
+
+        if (!is_null($offset)) {
+            $params['offset'] = $offset;
+        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',

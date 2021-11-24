@@ -92,6 +92,8 @@ GET https://appwrite.io/v1/users/{userId}/logs
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
+| limit | integer | Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
+| offset | integer | Offset value. The default value is 0. Use this param to manage pagination. | 0 |
 
 ## Update Name
 
