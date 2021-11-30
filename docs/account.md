@@ -96,7 +96,7 @@ PATCH https://appwrite.io/v1/account/prefs
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| prefs | object | Prefs key-value JSON object. |  |
+| prefs | object | Prefs key-value JSON object. | {} |
 
 ## Create Password Recovery
 

@@ -311,7 +311,7 @@ POST https://appwrite.io/v1/database/collections/{collectionId}/documents
 | --- | --- | --- | --- |
 | collectionId | string | **Required** Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection). |  |
 | documentId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
-| data | object | Document data as JSON object. |  |
+| data | object | Document data as JSON object. | {} |
 | read | array | An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 | write | array | An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 
@@ -344,7 +344,7 @@ PATCH https://appwrite.io/v1/database/collections/{collectionId}/documents/{docu
 | --- | --- | --- | --- |
 | collectionId | string | **Required** Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection). |  |
 | documentId | string | **Required** Document unique ID. |  |
-| data | object | Document data as JSON object. |  |
+| data | object | Document data as JSON object. | {} |
 | read | array | An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 | write | array | An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions. |  |
 

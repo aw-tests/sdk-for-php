@@ -152,7 +152,7 @@ PATCH https://appwrite.io/v1/users/{userId}/prefs
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
-| prefs | object | Prefs key-value JSON object. |  |
+| prefs | object | Prefs key-value JSON object. | {} |
 
 ## Get User Sessions
 
