@@ -95,23 +95,13 @@ class Account extends Service
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
-     * @param int $limit
-     * @param int $offset
      * @throws AppwriteException
      * @return array
      */
-    public function getLogs(int $limit = null, int $offset = null): array
+    public function getLogs(): array
     {
         $path   = str_replace([], [], '/account/logs');
         $params = [];
-
-        if (!is_null($limit)) {
-            $params['limit'] = $limit;
-        }
-
-        if (!is_null($offset)) {
-            $params['offset'] = $offset;
-        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',

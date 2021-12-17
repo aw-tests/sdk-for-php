@@ -82,7 +82,7 @@ class Health extends Service
     }
 
     /**
-     * Get Certificates Queue
+     * Get Certificate Queue
      *
      * Get the number of certificates that are waiting to be issued against
      * [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
@@ -129,6 +129,25 @@ class Health extends Service
     public function getQueueLogs(): array
     {
         $path   = str_replace([], [], '/health/queue/logs');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_GET, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Get Tasks Queue
+     *
+     * Get the number of tasks that are waiting to be processed in the Appwrite
+     * internal queue server.
+     *
+     * @throws AppwriteException
+     * @return array
+     */
+    public function getQueueTasks(): array
+    {
+        $path   = str_replace([], [], '/health/queue/tasks');
         $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [

@@ -19,13 +19,11 @@ class Teams extends Service
      * @param string $search
      * @param int $limit
      * @param int $offset
-     * @param string $cursor
-     * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
      * @return array
      */
-    public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
+    public function list(string $search = null, int $limit = null, int $offset = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/teams');
         $params = [];
@@ -40,14 +38,6 @@ class Teams extends Service
 
         if (!is_null($offset)) {
             $params['offset'] = $offset;
-        }
-
-        if (!is_null($cursor)) {
-            $params['cursor'] = $cursor;
-        }
-
-        if (!is_null($cursorDirection)) {
-            $params['cursorDirection'] = $cursorDirection;
         }
 
         if (!is_null($orderType)) {
@@ -67,28 +57,19 @@ class Teams extends Service
      * who will be able add new owners and update or delete the team from your
      * project.
      *
-     * @param string $teamId
      * @param string $name
      * @param array $roles
      * @throws AppwriteException
      * @return array
      */
-    public function create(string $teamId, string $name, array $roles = null): array
+    public function create(string $name, array $roles = null): array
     {
-        if (!isset($teamId)) {
-            throw new AppwriteException('Missing required parameter: "teamId"');
-        }
-
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
 
         $path   = str_replace([], [], '/teams');
         $params = [];
-
-        if (!is_null($teamId)) {
-            $params['teamId'] = $teamId;
-        }
 
         if (!is_null($name)) {
             $params['name'] = $name;
@@ -194,13 +175,11 @@ class Teams extends Service
      * @param string $search
      * @param int $limit
      * @param int $offset
-     * @param string $cursor
-     * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
      * @return array
      */
-    public function getMemberships(string $teamId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
+    public function getMemberships(string $teamId, string $search = null, int $limit = null, int $offset = null, string $orderType = null): array
     {
         if (!isset($teamId)) {
             throw new AppwriteException('Missing required parameter: "teamId"');
@@ -219,14 +198,6 @@ class Teams extends Service
 
         if (!is_null($offset)) {
             $params['offset'] = $offset;
-        }
-
-        if (!is_null($cursor)) {
-            $params['cursor'] = $cursor;
-        }
-
-        if (!is_null($cursorDirection)) {
-            $params['cursorDirection'] = $cursorDirection;
         }
 
         if (!is_null($orderType)) {
@@ -304,35 +275,6 @@ class Teams extends Service
         }
 
         return $this->client->call(Client::METHOD_POST, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
-     * Get Team Membership
-     *
-     * Get a team member by the membership unique id. All team members have read
-     * access for this resource.
-     *
-     * @param string $teamId
-     * @param string $membershipId
-     * @throws AppwriteException
-     * @return array
-     */
-    public function getMembership(string $teamId, string $membershipId): array
-    {
-        if (!isset($teamId)) {
-            throw new AppwriteException('Missing required parameter: "teamId"');
-        }
-
-        if (!isset($membershipId)) {
-            throw new AppwriteException('Missing required parameter: "membershipId"');
-        }
-
-        $path   = str_replace(['{teamId}', '{membershipId}'], [$teamId, $membershipId], '/teams/{teamId}/memberships/{membershipId}');
-        $params = [];
-
-        return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
         ], $params);
     }

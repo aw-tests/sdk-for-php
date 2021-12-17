@@ -15,8 +15,6 @@ GET https://appwrite.io/v1/users
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
 | limit | integer | Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Results offset. The default value is 0. Use this param to manage pagination. | 0 |
-| cursor | string | ID of the user used as the starting point for the query, excluding the user itself. Should be used for efficient pagination when working with large sets of data. |  |
-| cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create User
@@ -31,7 +29,6 @@ POST https://appwrite.io/v1/users
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| userId | string | Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | email | string | User email. |  |
 | password | string | User password. Must be between 6 to 32 chars. |  |
 | name | string | User name. Max length: 128 chars. |  |
@@ -85,15 +82,13 @@ PATCH https://appwrite.io/v1/users/{userId}/email
 GET https://appwrite.io/v1/users/{userId}/logs
 ```
 
-** Get the user activity logs list by its unique ID. **
+** Get a user activity logs list by its unique ID. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
-| limit | integer | Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this param to manage pagination. | 0 |
 
 ## Update Name
 
@@ -152,7 +147,7 @@ PATCH https://appwrite.io/v1/users/{userId}/prefs
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
-| prefs | object | Prefs key-value JSON object. | {} |
+| prefs | object | Prefs key-value JSON object. |  |
 
 ## Get User Sessions
 
@@ -210,7 +205,7 @@ PATCH https://appwrite.io/v1/users/{userId}/status
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | userId | string | **Required** User unique ID. |  |
-| status | boolean | User Status. To activate the user pass `true` and to block the user pass `false` |  |
+| status | integer | User Status code. To activate the user pass 1, to block the user pass 2 and for disabling the user pass 0 |  |
 
 ## Update Email Verification
 

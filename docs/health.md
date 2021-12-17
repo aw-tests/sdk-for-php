@@ -32,7 +32,7 @@ GET https://appwrite.io/v1/health/db
 
 ** Check the Appwrite database server is up and connection is successful. **
 
-## Get Certificates Queue
+## Get Certificate Queue
 
 ```http request
 GET https://appwrite.io/v1/health/queue/certificates
@@ -53,6 +53,14 @@ GET https://appwrite.io/v1/health/queue/logs
 ```
 
 ** Get the number of logs that are waiting to be processed in the Appwrite internal queue server. **
+
+## Get Tasks Queue
+
+```http request
+GET https://appwrite.io/v1/health/queue/tasks
+```
+
+** Get the number of tasks that are waiting to be processed in the Appwrite internal queue server. **
 
 ## Get Usage Queue
 
