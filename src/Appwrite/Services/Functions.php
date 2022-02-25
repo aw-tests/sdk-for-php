@@ -17,11 +17,13 @@ class Functions extends Service
      * @param string $search
      * @param int $limit
      * @param int $offset
+     * @param string $cursor
+     * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
      * @return array
      */
-    public function list(string $search = null, int $limit = null, int $offset = null, string $orderType = null): array
+    public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/functions');
         $params = [];
@@ -36,6 +38,14 @@ class Functions extends Service
 
         if (!is_null($offset)) {
             $params['offset'] = $offset;
+        }
+
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
         }
 
         if (!is_null($orderType)) {
@@ -54,6 +64,7 @@ class Functions extends Service
      * [permissions](/docs/permissions) to allow different project users or team
      * with access to execute the function using the client API.
      *
+     * @param string $functionId
      * @param string $name
      * @param array $execute
      * @param string $runtime
@@ -64,8 +75,12 @@ class Functions extends Service
      * @throws AppwriteException
      * @return array
      */
-    public function create(string $name, array $execute, string $runtime, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
+    public function create(string $functionId, string $name, array $execute, string $runtime, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
     {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
@@ -80,6 +95,10 @@ class Functions extends Service
 
         $path   = str_replace([], [], '/functions');
         $params = [];
+
+        if (!is_null($functionId)) {
+            $params['functionId'] = $functionId;
+        }
 
         if (!is_null($name)) {
             $params['name'] = $name;
@@ -110,6 +129,24 @@ class Functions extends Service
         }
 
         return $this->client->call(Client::METHOD_POST, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * List the currently active function runtimes.
+     *
+     * Get a list of all runtimes that are currently active in your project.
+     *
+     * @throws AppwriteException
+     * @return array
+     */
+    public function listRuntimes(): array
+    {
+        $path   = str_replace([], [], '/functions/runtimes');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
         ], $params);
     }
@@ -222,28 +259,28 @@ class Functions extends Service
     }
 
     /**
-     * List Executions
+     * List Deployments
      *
-     * Get a list of all the current user function execution logs. You can use the
-     * query params to filter your results. On admin mode, this endpoint will
-     * return a list of all of the project's executions. [Learn more about
-     * different API modes](/docs/admin).
+     * Get a list of all the project's code deployments. You can use the query
+     * params to filter your results.
      *
      * @param string $functionId
      * @param string $search
      * @param int $limit
      * @param int $offset
+     * @param string $cursor
+     * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
      * @return array
      */
-    public function listExecutions(string $functionId, string $search = null, int $limit = null, int $offset = null, string $orderType = null): array
+    public function listDeployments(string $functionId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         if (!isset($functionId)) {
             throw new AppwriteException('Missing required parameter: "functionId"');
         }
 
-        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/executions');
+        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/deployments');
         $params = [];
 
         if (!is_null($search)) {
@@ -258,8 +295,272 @@ class Functions extends Service
             $params['offset'] = $offset;
         }
 
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
+        }
+
         if (!is_null($orderType)) {
             $params['orderType'] = $orderType;
+        }
+
+        return $this->client->call(Client::METHOD_GET, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Create Deployment
+     *
+     * Create a new function code deployment. Use this endpoint to upload a new
+     * version of your code function. To execute your newly uploaded code, you'll
+     * need to update the function's deployment to use your new deployment UID.
+     * 
+     * This endpoint accepts a tar.gz file compressed with your code. Make sure to
+     * include any dependencies your code has within the compressed file. You can
+     * learn more about code packaging in the [Appwrite Cloud Functions
+     * tutorial](/docs/functions).
+     * 
+     * Use the "command" param to set the entry point used to execute your code.
+     *
+     * @param string $functionId
+     * @param string $entrypoint
+     * @param string $code
+     * @param bool $activate
+     * @throws AppwriteException
+     * @return array
+     */
+    public function createDeployment(string $functionId, string $entrypoint, string $code, bool $activate, callable $onProgress = null): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($entrypoint)) {
+            throw new AppwriteException('Missing required parameter: "entrypoint"');
+        }
+
+        if (!isset($code)) {
+            throw new AppwriteException('Missing required parameter: "code"');
+        }
+
+        if (!isset($activate)) {
+            throw new AppwriteException('Missing required parameter: "activate"');
+        }
+
+        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/deployments');
+        $params = [];
+
+        if (!is_null($entrypoint)) {
+            $params['entrypoint'] = $entrypoint;
+        }
+
+        if (!is_null($code)) {
+            $params['code'] = $code;
+        }
+
+        if (!is_null($activate)) {
+            $params['activate'] = $activate;
+        }
+
+        $size = filesize($code);
+        $mimeType = mime_content_type($code);
+        $postedName = basename($code);
+        //send single file if size is less than or equal to 5MB
+        if ($size <= Client::CHUNK_SIZE) {
+            $params['code'] = new \CURLFile($code, $mimeType, $postedName);
+            return $this->client->call(Client::METHOD_POST, $path, [
+                'content-type' => 'multipart/form-data',
+                ], $params);
+        } else {
+            $id = '';
+            $handle = @fopen($code, "rb");
+            $counter = 0;
+            $headers = ['content-type' => 'multipart/form-data'];
+            while (!feof($handle)) {
+                $params['code'] = new \CURLFile('data://' . $mimeType . ';base64,' . base64_encode(@fread($handle, Client::CHUNK_SIZE)), $mimeType, $postedName);
+                $headers['content-range'] = 'bytes ' . ($counter * Client::CHUNK_SIZE) . '-' . min(((($counter * Client::CHUNK_SIZE) + Client::CHUNK_SIZE) - 1), $size) . '/' . $size;
+                if(!empty($id)) {
+                    $headers['x-appwrite-id'] = $id;
+                }
+                $response = $this->client->call(Client::METHOD_POST, $path, $headers, $params);
+                $counter++;
+                if(empty($id)) {
+                    $id = $response['$id'];
+                }
+                if($onProgress !== null) {
+                    $onProgress(min(((($counter * Client::CHUNK_SIZE) + Client::CHUNK_SIZE) - 1), $size) / $size * 100);
+                }
+            }
+            @fclose($handle);
+            return $response;
+        }
+    }
+
+    /**
+     * Get Deployment
+     *
+     * Get a code deployment by its unique ID.
+     *
+     * @param string $functionId
+     * @param string $deploymentId
+     * @throws AppwriteException
+     * @return array
+     */
+    public function getDeployment(string $functionId, string $deploymentId): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($deploymentId)) {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+
+        $path   = str_replace(['{functionId}', '{deploymentId}'], [$functionId, $deploymentId], '/functions/{functionId}/deployments/{deploymentId}');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_GET, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Update Function Deployment
+     *
+     * Update the function code deployment ID using the unique function ID. Use
+     * this endpoint to switch the code deployment that should be executed by the
+     * execution endpoint.
+     *
+     * @param string $functionId
+     * @param string $deploymentId
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updateDeployment(string $functionId, string $deploymentId): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($deploymentId)) {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+
+        $path   = str_replace(['{functionId}', '{deploymentId}'], [$functionId, $deploymentId], '/functions/{functionId}/deployments/{deploymentId}');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_PATCH, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Delete Deployment
+     *
+     * Delete a code deployment by its unique ID.
+     *
+     * @param string $functionId
+     * @param string $deploymentId
+     * @throws AppwriteException
+     * @return array
+     */
+    public function deleteDeployment(string $functionId, string $deploymentId): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($deploymentId)) {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+
+        $path   = str_replace(['{functionId}', '{deploymentId}'], [$functionId, $deploymentId], '/functions/{functionId}/deployments/{deploymentId}');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_DELETE, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Retry Build
+     *
+     * @param string $functionId
+     * @param string $deploymentId
+     * @param string $buildId
+     * @throws AppwriteException
+     * @return array
+     */
+    public function retryBuild(string $functionId, string $deploymentId, string $buildId): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        if (!isset($deploymentId)) {
+            throw new AppwriteException('Missing required parameter: "deploymentId"');
+        }
+
+        if (!isset($buildId)) {
+            throw new AppwriteException('Missing required parameter: "buildId"');
+        }
+
+        $path   = str_replace(['{functionId}', '{deploymentId}', '{buildId}'], [$functionId, $deploymentId, $buildId], '/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_POST, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * List Executions
+     *
+     * Get a list of all the current user function execution logs. You can use the
+     * query params to filter your results. On admin mode, this endpoint will
+     * return a list of all of the project's executions. [Learn more about
+     * different API modes](/docs/admin).
+     *
+     * @param string $functionId
+     * @param int $limit
+     * @param int $offset
+     * @param string $search
+     * @param string $cursor
+     * @param string $cursorDirection
+     * @throws AppwriteException
+     * @return array
+     */
+    public function listExecutions(string $functionId, int $limit = null, int $offset = null, string $search = null, string $cursor = null, string $cursorDirection = null): array
+    {
+        if (!isset($functionId)) {
+            throw new AppwriteException('Missing required parameter: "functionId"');
+        }
+
+        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/executions');
+        $params = [];
+
+        if (!is_null($limit)) {
+            $params['limit'] = $limit;
+        }
+
+        if (!is_null($offset)) {
+            $params['offset'] = $offset;
+        }
+
+        if (!is_null($search)) {
+            $params['search'] = $search;
+        }
+
+        if (!is_null($cursor)) {
+            $params['cursor'] = $cursor;
+        }
+
+        if (!is_null($cursorDirection)) {
+            $params['cursorDirection'] = $cursorDirection;
         }
 
         return $this->client->call(Client::METHOD_GET, $path, [
@@ -277,10 +578,11 @@ class Functions extends Service
      *
      * @param string $functionId
      * @param string $data
+     * @param bool $async
      * @throws AppwriteException
      * @return array
      */
-    public function createExecution(string $functionId, string $data = null): array
+    public function createExecution(string $functionId, string $data = null, bool $async = null): array
     {
         if (!isset($functionId)) {
             throw new AppwriteException('Missing required parameter: "functionId"');
@@ -291,6 +593,10 @@ class Functions extends Service
 
         if (!is_null($data)) {
             $params['data'] = $data;
+        }
+
+        if (!is_null($async)) {
+            $params['async'] = $async;
         }
 
         return $this->client->call(Client::METHOD_POST, $path, [
@@ -322,190 +628,6 @@ class Functions extends Service
         $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
-     * Update Function Tag
-     *
-     * Update the function code tag ID using the unique function ID. Use this
-     * endpoint to switch the code tag that should be executed by the execution
-     * endpoint.
-     *
-     * @param string $functionId
-     * @param string $tag
-     * @throws AppwriteException
-     * @return array
-     */
-    public function updateTag(string $functionId, string $tag): array
-    {
-        if (!isset($functionId)) {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-
-        if (!isset($tag)) {
-            throw new AppwriteException('Missing required parameter: "tag"');
-        }
-
-        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tag');
-        $params = [];
-
-        if (!is_null($tag)) {
-            $params['tag'] = $tag;
-        }
-
-        return $this->client->call(Client::METHOD_PATCH, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
-     * List Tags
-     *
-     * Get a list of all the project's code tags. You can use the query params to
-     * filter your results.
-     *
-     * @param string $functionId
-     * @param string $search
-     * @param int $limit
-     * @param int $offset
-     * @param string $orderType
-     * @throws AppwriteException
-     * @return array
-     */
-    public function listTags(string $functionId, string $search = null, int $limit = null, int $offset = null, string $orderType = null): array
-    {
-        if (!isset($functionId)) {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-
-        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tags');
-        $params = [];
-
-        if (!is_null($search)) {
-            $params['search'] = $search;
-        }
-
-        if (!is_null($limit)) {
-            $params['limit'] = $limit;
-        }
-
-        if (!is_null($offset)) {
-            $params['offset'] = $offset;
-        }
-
-        if (!is_null($orderType)) {
-            $params['orderType'] = $orderType;
-        }
-
-        return $this->client->call(Client::METHOD_GET, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
-     * Create Tag
-     *
-     * Create a new function code tag. Use this endpoint to upload a new version
-     * of your code function. To execute your newly uploaded code, you'll need to
-     * update the function's tag to use your new tag UID.
-     * 
-     * This endpoint accepts a tar.gz file compressed with your code. Make sure to
-     * include any dependencies your code has within the compressed file. You can
-     * learn more about code packaging in the [Appwrite Cloud Functions
-     * tutorial](/docs/functions).
-     * 
-     * Use the "command" param to set the entry point used to execute your code.
-     *
-     * @param string $functionId
-     * @param string $command
-     * @param \CurlFile $code
-     * @throws AppwriteException
-     * @return array
-     */
-    public function createTag(string $functionId, string $command, \CurlFile $code): array
-    {
-        if (!isset($functionId)) {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-
-        if (!isset($command)) {
-            throw new AppwriteException('Missing required parameter: "command"');
-        }
-
-        if (!isset($code)) {
-            throw new AppwriteException('Missing required parameter: "code"');
-        }
-
-        $path   = str_replace(['{functionId}'], [$functionId], '/functions/{functionId}/tags');
-        $params = [];
-
-        if (!is_null($command)) {
-            $params['command'] = $command;
-        }
-
-        if (!is_null($code)) {
-            $params['code'] = $code;
-        }
-
-        return $this->client->call(Client::METHOD_POST, $path, [
-            'content-type' => 'multipart/form-data',
-        ], $params);
-    }
-
-    /**
-     * Get Tag
-     *
-     * Get a code tag by its unique ID.
-     *
-     * @param string $functionId
-     * @param string $tagId
-     * @throws AppwriteException
-     * @return array
-     */
-    public function getTag(string $functionId, string $tagId): array
-    {
-        if (!isset($functionId)) {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-
-        if (!isset($tagId)) {
-            throw new AppwriteException('Missing required parameter: "tagId"');
-        }
-
-        $path   = str_replace(['{functionId}', '{tagId}'], [$functionId, $tagId], '/functions/{functionId}/tags/{tagId}');
-        $params = [];
-
-        return $this->client->call(Client::METHOD_GET, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
-     * Delete Tag
-     *
-     * Delete a code tag by its unique ID.
-     *
-     * @param string $functionId
-     * @param string $tagId
-     * @throws AppwriteException
-     * @return array
-     */
-    public function deleteTag(string $functionId, string $tagId): array
-    {
-        if (!isset($functionId)) {
-            throw new AppwriteException('Missing required parameter: "functionId"');
-        }
-
-        if (!isset($tagId)) {
-            throw new AppwriteException('Missing required parameter: "tagId"');
-        }
-
-        $path   = str_replace(['{functionId}', '{tagId}'], [$functionId, $tagId], '/functions/{functionId}/tags/{tagId}');
-        $params = [];
-
-        return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
         ], $params);
     }

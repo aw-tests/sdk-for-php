@@ -14,6 +14,8 @@ class Client
     const METHOD_CONNECT = 'CONNECT';
     const METHOD_TRACE = 'TRACE';
 
+    const CHUNK_SIZE = 5*1024*1024;
+
     /**
      * Is Self Signed Certificates Allowed?
      *
@@ -26,7 +28,7 @@ class Client
      *
      * @var string
      */
-    protected $endpoint = 'https://appwrite.io/v1';
+    protected $endpoint = 'https://HOSTNAME/v1';
 
     /**
      * Global Headers
@@ -35,7 +37,7 @@ class Client
      */
     protected $headers = [
         'content-type' => '',
-        'x-sdk-version' => 'appwrite:php:2.3.2',
+        'x-sdk-version' => 'appwrite:php:3.0.0',
     ];
 
     /**
@@ -43,7 +45,7 @@ class Client
      */
     public function __construct()
     {
-        $this->headers['X-Appwrite-Response-Format'] = '0.11.0';
+        $this->headers['X-Appwrite-Response-Format'] = '0.12.0';
  
     }
 
@@ -229,7 +231,7 @@ class Client
 
         if($responseStatus >= 400) {
             if(is_array($responseBody)) {
-                throw new AppwriteException($responseBody['message'], $responseStatus, $responseBody);
+                throw new AppwriteException($responseBody['message'], $responseStatus, $responseBody['type'] ?? '', $responseBody);
             } else {
                 throw new AppwriteException($responseBody, $responseStatus);
             }

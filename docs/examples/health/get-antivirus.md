@@ -13,4 +13,4 @@ $client
 
 $health = new Health($client);
 
-$result = $health->getQueueTasks();
+$result = $health->getAntivirus();

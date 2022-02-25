@@ -13,4 +13,4 @@ $client
 
 $storage = new Storage($client);
 
-$result = $storage->listFiles();
+$result = $storage->listFiles('[BUCKET_ID]');
