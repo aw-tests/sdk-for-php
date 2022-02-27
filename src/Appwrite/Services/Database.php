@@ -1,6 +1,7 @@
 <?php
 
 namespace Appwrite\Services;
+hello
 
 use Appwrite\AppwriteException;
 use Appwrite\Client;
@@ -210,9 +211,9 @@ class Database extends Service
      *
      * @param string $collectionId
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteCollection(string $collectionId): array
+    public function deleteCollection(string $collectionId): string
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -732,9 +733,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteAttribute(string $collectionId, string $key): array
+    public function deleteAttribute(string $collectionId, string $key): string
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -954,9 +955,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteDocument(string $collectionId, string $documentId): array
+    public function deleteDocument(string $collectionId, string $documentId): string
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -1080,9 +1081,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteIndex(string $collectionId, string $key): array
+    public function deleteIndex(string $collectionId, string $key): string
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');

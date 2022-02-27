@@ -1,6 +1,7 @@
 <?php
 
 namespace Appwrite\Services;
+hello
 
 use Appwrite\AppwriteException;
 use Appwrite\Client;
@@ -244,9 +245,9 @@ class Storage extends Service
      *
      * @param string $bucketId
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteBucket(string $bucketId): array
+    public function deleteBucket(string $bucketId): string
     {
         if (!isset($bucketId)) {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -489,9 +490,9 @@ class Storage extends Service
      * @param string $bucketId
      * @param string $fileId
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function deleteFile(string $bucketId, string $fileId): array
+    public function deleteFile(string $bucketId, string $fileId): string
     {
         if (!isset($bucketId)) {
             throw new AppwriteException('Missing required parameter: "bucketId"');
@@ -562,9 +563,9 @@ class Storage extends Service
      * @param string $background
      * @param string $output
      * @throws AppwriteException
-     * @return array
+     * @return string
      */
-    public function getFilePreview(string $bucketId, string $fileId, int $width = null, int $height = null, string $gravity = null, int $quality = null, int $borderWidth = null, string $borderColor = null, int $borderRadius = null, int $opacity = null, int $rotation = null, string $background = null, string $output = null): array
+    public function getFilePreview(string $bucketId, string $fileId, int $width = null, int $height = null, string $gravity = null, int $quality = null, int $borderWidth = null, string $borderColor = null, int $borderRadius = null, int $opacity = null, int $rotation = null, string $background = null, string $output = null): string
     {
         if (!isset($bucketId)) {
             throw new AppwriteException('Missing required parameter: "bucketId"');
