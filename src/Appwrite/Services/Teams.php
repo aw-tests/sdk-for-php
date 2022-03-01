@@ -24,8 +24,7 @@ class Teams extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/teams');
@@ -71,8 +70,7 @@ class Teams extends Service
      * @param string $name
      * @param array $roles
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function create(string $teamId, string $name, array $roles = null): array
     {
         if (!isset($teamId)) {
@@ -110,8 +108,7 @@ class Teams extends Service
      *
      * @param string $teamId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function get(string $teamId): array
     {
         if (!isset($teamId)) {
@@ -135,8 +132,7 @@ class Teams extends Service
      * @param string $teamId
      * @param string $name
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function update(string $teamId, string $name): array
     {
         if (!isset($teamId)) {
@@ -167,8 +163,7 @@ class Teams extends Service
      *
      * @param string $teamId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function delete(string $teamId): string
     {
         if (!isset($teamId)) {
@@ -197,8 +192,7 @@ class Teams extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getMemberships(string $teamId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         if (!isset($teamId)) {
@@ -262,8 +256,7 @@ class Teams extends Service
      * @param string $url
      * @param string $name
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createMembership(string $teamId, string $email, array $roles, string $url, string $name = null): array
     {
         if (!isset($teamId)) {
@@ -315,8 +308,7 @@ class Teams extends Service
      * @param string $teamId
      * @param string $membershipId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getMembership(string $teamId, string $membershipId): array
     {
         if (!isset($teamId)) {
@@ -346,8 +338,7 @@ class Teams extends Service
      * @param string $membershipId
      * @param array $roles
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateMembershipRoles(string $teamId, string $membershipId, array $roles): array
     {
         if (!isset($teamId)) {
@@ -384,8 +375,7 @@ class Teams extends Service
      * @param string $teamId
      * @param string $membershipId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteMembership(string $teamId, string $membershipId): string
     {
         if (!isset($teamId)) {
@@ -420,8 +410,7 @@ class Teams extends Service
      * @param string $userId
      * @param string $secret
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateMembershipStatus(string $teamId, string $membershipId, string $userId, string $secret): array
     {
         if (!isset($teamId)) {

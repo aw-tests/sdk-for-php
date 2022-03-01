@@ -14,8 +14,7 @@ class Health extends Service
      * Check the Appwrite HTTP server is up and responsive.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function get(): array
     {
         $path   = str_replace([], [], '/health');
@@ -32,8 +31,7 @@ class Health extends Service
      * Check the Appwrite Antivirus server is up and connection is successful.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getAntivirus(): array
     {
         $path   = str_replace([], [], '/health/anti-virus');
@@ -51,8 +49,7 @@ class Health extends Service
      * successful.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getCache(): array
     {
         $path   = str_replace([], [], '/health/cache');
@@ -69,8 +66,7 @@ class Health extends Service
      * Check the Appwrite database server is up and connection is successful.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getDB(): array
     {
         $path   = str_replace([], [], '/health/db');
@@ -89,8 +85,7 @@ class Health extends Service
      * server.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getQueueCertificates(): array
     {
         $path   = str_replace([], [], '/health/queue/certificates');
@@ -105,8 +100,7 @@ class Health extends Service
      * Get Functions Queue
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getQueueFunctions(): array
     {
         $path   = str_replace([], [], '/health/queue/functions');
@@ -124,8 +118,7 @@ class Health extends Service
      * internal queue server.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getQueueLogs(): array
     {
         $path   = str_replace([], [], '/health/queue/logs');
@@ -143,8 +136,7 @@ class Health extends Service
      * Appwrite internal queue server.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getQueueUsage(): array
     {
         $path   = str_replace([], [], '/health/queue/usage');
@@ -162,8 +154,7 @@ class Health extends Service
      * internal queue server.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getQueueWebhooks(): array
     {
         $path   = str_replace([], [], '/health/queue/webhooks');
@@ -180,8 +171,7 @@ class Health extends Service
      * Check the Appwrite local storage device is up and connection is successful.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getStorageLocal(): array
     {
         $path   = str_replace([], [], '/health/storage/local');
@@ -204,8 +194,7 @@ class Health extends Service
      * uses NTP.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getTime(): array
     {
         $path   = str_replace([], [], '/health/time');

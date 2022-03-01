@@ -21,8 +21,7 @@ class Functions extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/functions');
@@ -73,8 +72,7 @@ class Functions extends Service
      * @param string $schedule
      * @param int $timeout
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function create(string $functionId, string $name, array $execute, string $runtime, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
     {
         if (!isset($functionId)) {
@@ -139,8 +137,7 @@ class Functions extends Service
      * Get a list of all runtimes that are currently active in your project.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function listRuntimes(): array
     {
         $path   = str_replace([], [], '/functions/runtimes');
@@ -158,8 +155,7 @@ class Functions extends Service
      *
      * @param string $functionId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function get(string $functionId): array
     {
         if (!isset($functionId)) {
@@ -187,8 +183,7 @@ class Functions extends Service
      * @param string $schedule
      * @param int $timeout
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function update(string $functionId, string $name, array $execute, array $vars = null, array $events = null, string $schedule = null, int $timeout = null): array
     {
         if (!isset($functionId)) {
@@ -242,8 +237,7 @@ class Functions extends Service
      *
      * @param string $functionId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function delete(string $functionId): string
     {
         if (!isset($functionId)) {
@@ -272,8 +266,7 @@ class Functions extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function listDeployments(string $functionId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         if (!isset($functionId)) {
@@ -331,8 +324,7 @@ class Functions extends Service
      * @param string $code
      * @param bool $activate
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createDeployment(string $functionId, string $entrypoint, string $code, bool $activate, callable $onProgress = null): array
     {
         if (!isset($functionId)) {
@@ -392,7 +384,13 @@ class Functions extends Service
                     $id = $response['$id'];
                 }
                 if($onProgress !== null) {
-                    $onProgress(min(((($counter * Client::CHUNK_SIZE) + Client::CHUNK_SIZE) - 1), $size) / $size * 100);
+                    $onProgress([
+                        '$id' => $response['$id'],
+                        'progress' => min(($counter+1) * Client.CHUNK_SIZE, $size) / $size * 100,
+                        'sizeUploaded' => $end + 1,
+                        'chunksTotal' => $response['chunksTotal'],
+                        'chunksUploaded' => $response['chunksUploaded']
+                    ]);
                 }
             }
             @fclose($handle);
@@ -408,8 +406,7 @@ class Functions extends Service
      * @param string $functionId
      * @param string $deploymentId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getDeployment(string $functionId, string $deploymentId): array
     {
         if (!isset($functionId)) {
@@ -438,8 +435,7 @@ class Functions extends Service
      * @param string $functionId
      * @param string $deploymentId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateDeployment(string $functionId, string $deploymentId): array
     {
         if (!isset($functionId)) {
@@ -466,8 +462,7 @@ class Functions extends Service
      * @param string $functionId
      * @param string $deploymentId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteDeployment(string $functionId, string $deploymentId): string
     {
         if (!isset($functionId)) {
@@ -493,8 +488,7 @@ class Functions extends Service
      * @param string $deploymentId
      * @param string $buildId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function retryBuild(string $functionId, string $deploymentId, string $buildId): array
     {
         if (!isset($functionId)) {
@@ -532,8 +526,7 @@ class Functions extends Service
      * @param string $cursor
      * @param string $cursorDirection
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function listExecutions(string $functionId, int $limit = null, int $offset = null, string $search = null, string $cursor = null, string $cursorDirection = null): array
     {
         if (!isset($functionId)) {
@@ -580,8 +573,7 @@ class Functions extends Service
      * @param string $data
      * @param bool $async
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createExecution(string $functionId, string $data = null, bool $async = null): array
     {
         if (!isset($functionId)) {
@@ -612,8 +604,7 @@ class Functions extends Service
      * @param string $functionId
      * @param string $executionId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getExecution(string $functionId, string $executionId): array
     {
         if (!isset($functionId)) {

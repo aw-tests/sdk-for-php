@@ -21,8 +21,7 @@ class Users extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/users');
@@ -67,8 +66,7 @@ class Users extends Service
      * @param string $password
      * @param string $name
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function create(string $userId, string $email, string $password, string $name = null): array
     {
         if (!isset($userId)) {
@@ -114,8 +112,7 @@ class Users extends Service
      *
      * @param string $userId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function get(string $userId): array
     {
         if (!isset($userId)) {
@@ -137,8 +134,7 @@ class Users extends Service
      *
      * @param string $userId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function delete(string $userId): string
     {
         if (!isset($userId)) {
@@ -161,8 +157,7 @@ class Users extends Service
      * @param string $userId
      * @param string $email
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateEmail(string $userId, string $email): array
     {
         if (!isset($userId)) {
@@ -194,8 +189,7 @@ class Users extends Service
      * @param int $limit
      * @param int $offset
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getLogs(string $userId, int $limit = null, int $offset = null): array
     {
         if (!isset($userId)) {
@@ -226,8 +220,7 @@ class Users extends Service
      * @param string $userId
      * @param string $name
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateName(string $userId, string $name): array
     {
         if (!isset($userId)) {
@@ -258,8 +251,7 @@ class Users extends Service
      * @param string $userId
      * @param string $password
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updatePassword(string $userId, string $password): array
     {
         if (!isset($userId)) {
@@ -289,8 +281,7 @@ class Users extends Service
      *
      * @param string $userId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getPrefs(string $userId): array
     {
         if (!isset($userId)) {
@@ -315,8 +306,7 @@ class Users extends Service
      * @param string $userId
      * @param array $prefs
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updatePrefs(string $userId, array $prefs): array
     {
         if (!isset($userId)) {
@@ -346,8 +336,7 @@ class Users extends Service
      *
      * @param string $userId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getSessions(string $userId): array
     {
         if (!isset($userId)) {
@@ -369,8 +358,7 @@ class Users extends Service
      *
      * @param string $userId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteSessions(string $userId): string
     {
         if (!isset($userId)) {
@@ -393,8 +381,7 @@ class Users extends Service
      * @param string $userId
      * @param string $sessionId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteSession(string $userId, string $sessionId): string
     {
         if (!isset($userId)) {
@@ -421,8 +408,7 @@ class Users extends Service
      * @param string $userId
      * @param bool $status
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateStatus(string $userId, bool $status): array
     {
         if (!isset($userId)) {
@@ -453,8 +439,7 @@ class Users extends Service
      * @param string $userId
      * @param bool $emailVerification
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateVerification(string $userId, bool $emailVerification): array
     {
         if (!isset($userId)) {

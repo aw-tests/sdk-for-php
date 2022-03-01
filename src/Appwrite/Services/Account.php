@@ -14,8 +14,7 @@ class Account extends Service
      * Get currently logged in user data as JSON object.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function get(): array
     {
         $path   = str_replace([], [], '/account');
@@ -36,8 +35,7 @@ class Account extends Service
      * be deleted separately.
      *
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function delete(): string
     {
         $path   = str_replace([], [], '/account');
@@ -63,8 +61,7 @@ class Account extends Service
      * @param string $email
      * @param string $password
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateEmail(string $email, string $password): array
     {
         if (!isset($email)) {
@@ -100,8 +97,7 @@ class Account extends Service
      * @param int $limit
      * @param int $offset
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getLogs(int $limit = null, int $offset = null): array
     {
         $path   = str_replace([], [], '/account/logs');
@@ -127,8 +123,7 @@ class Account extends Service
      *
      * @param string $name
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateName(string $name): array
     {
         if (!isset($name)) {
@@ -157,8 +152,7 @@ class Account extends Service
      * @param string $password
      * @param string $oldPassword
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updatePassword(string $password, string $oldPassword = null): array
     {
         if (!isset($password)) {
@@ -187,8 +181,7 @@ class Account extends Service
      * Get currently logged in user preferences as a key-value object.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getPrefs(): array
     {
         $path   = str_replace([], [], '/account/prefs');
@@ -208,8 +201,7 @@ class Account extends Service
      *
      * @param array $prefs
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updatePrefs(array $prefs): array
     {
         if (!isset($prefs)) {
@@ -243,8 +235,7 @@ class Account extends Service
      * @param string $email
      * @param string $url
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createRecovery(string $email, string $url): array
     {
         if (!isset($email)) {
@@ -289,8 +280,7 @@ class Account extends Service
      * @param string $password
      * @param string $passwordAgain
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateRecovery(string $userId, string $secret, string $password, string $passwordAgain): array
     {
         if (!isset($userId)) {
@@ -340,8 +330,7 @@ class Account extends Service
      * devices.
      *
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getSessions(): array
     {
         $path   = str_replace([], [], '/account/sessions');
@@ -359,8 +348,7 @@ class Account extends Service
      * from the end client.
      *
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteSessions(): string
     {
         $path   = str_replace([], [], '/account/sessions');
@@ -379,8 +367,7 @@ class Account extends Service
      *
      * @param string $sessionId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getSession(string $sessionId): array
     {
         if (!isset($sessionId)) {
@@ -400,8 +387,7 @@ class Account extends Service
      *
      * @param string $sessionId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateSession(string $sessionId): array
     {
         if (!isset($sessionId)) {
@@ -426,8 +412,7 @@ class Account extends Service
      *
      * @param string $sessionId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteSession(string $sessionId): string
     {
         if (!isset($sessionId)) {
@@ -463,8 +448,7 @@ class Account extends Service
      *
      * @param string $url
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createVerification(string $url): array
     {
         if (!isset($url)) {
@@ -494,8 +478,7 @@ class Account extends Service
      * @param string $userId
      * @param string $secret
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateVerification(string $userId, string $secret): array
     {
         if (!isset($userId)) {

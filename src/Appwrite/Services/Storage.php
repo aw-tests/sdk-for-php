@@ -21,8 +21,7 @@ class Storage extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function listBuckets(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/storage/buckets');
@@ -73,8 +72,7 @@ class Storage extends Service
      * @param bool $encryption
      * @param bool $antivirus
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createBucket(string $bucketId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null, int $maximumFileSize = null, array $allowedFileExtensions = null, bool $encryption = null, bool $antivirus = null): array
     {
         if (!isset($bucketId)) {
@@ -145,8 +143,7 @@ class Storage extends Service
      *
      * @param string $bucketId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getBucket(string $bucketId): array
     {
         if (!isset($bucketId)) {
@@ -177,8 +174,7 @@ class Storage extends Service
      * @param bool $encryption
      * @param bool $antivirus
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateBucket(string $bucketId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null, int $maximumFileSize = null, array $allowedFileExtensions = null, bool $encryption = null, bool $antivirus = null): array
     {
         if (!isset($bucketId)) {
@@ -244,8 +240,7 @@ class Storage extends Service
      *
      * @param string $bucketId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteBucket(string $bucketId): string
     {
         if (!isset($bucketId)) {
@@ -275,8 +270,7 @@ class Storage extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function listFiles(string $bucketId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         if (!isset($bucketId)) {
@@ -343,8 +337,7 @@ class Storage extends Service
      * @param array $read
      * @param array $write
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function createFile(string $bucketId, string $fileId, string $file, array $read = null, array $write = null, callable $onProgress = null): array
     {
         if (!isset($bucketId)) {
@@ -404,7 +397,13 @@ class Storage extends Service
                     $id = $response['$id'];
                 }
                 if($onProgress !== null) {
-                    $onProgress(min(((($counter * Client::CHUNK_SIZE) + Client::CHUNK_SIZE) - 1), $size) / $size * 100);
+                    $onProgress([
+                        '$id' => $response['$id'],
+                        'progress' => min(($counter+1) * Client.CHUNK_SIZE, $size) / $size * 100,
+                        'sizeUploaded' => $end + 1,
+                        'chunksTotal' => $response['chunksTotal'],
+                        'chunksUploaded' => $response['chunksUploaded']
+                    ]);
                 }
             }
             @fclose($handle);
@@ -421,8 +420,7 @@ class Storage extends Service
      * @param string $bucketId
      * @param string $fileId
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function getFile(string $bucketId, string $fileId): array
     {
         if (!isset($bucketId)) {
@@ -452,8 +450,7 @@ class Storage extends Service
      * @param array $read
      * @param array $write
      * @throws AppwriteException
-     * @return array
-     */
+    * @return array     */
     public function updateFile(string $bucketId, string $fileId, array $read = null, array $write = null): array
     {
         if (!isset($bucketId)) {
@@ -489,8 +486,7 @@ class Storage extends Service
      * @param string $bucketId
      * @param string $fileId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function deleteFile(string $bucketId, string $fileId): string
     {
         if (!isset($bucketId)) {
@@ -519,8 +515,7 @@ class Storage extends Service
      * @param string $bucketId
      * @param string $fileId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function getFileDownload(string $bucketId, string $fileId): string
     {
         if (!isset($bucketId)) {
@@ -562,8 +557,7 @@ class Storage extends Service
      * @param string $background
      * @param string $output
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function getFilePreview(string $bucketId, string $fileId, int $width = null, int $height = null, string $gravity = null, int $quality = null, int $borderWidth = null, string $borderColor = null, int $borderRadius = null, int $opacity = null, int $rotation = null, string $background = null, string $output = null): string
     {
         if (!isset($bucketId)) {
@@ -636,8 +630,7 @@ class Storage extends Service
      * @param string $bucketId
      * @param string $fileId
      * @throws AppwriteException
-     * @return string
-     */
+    * @return string     */
     public function getFileView(string $bucketId, string $fileId): string
     {
         if (!isset($bucketId)) {
