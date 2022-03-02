@@ -19,7 +19,8 @@ class Locale extends Service
      * ([IP Geolocation by DB-IP](https://db-ip.com))
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function get(): array
     {
         $path   = str_replace([], [], '/locale');
@@ -37,7 +38,8 @@ class Locale extends Service
      * supported language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getContinents(): array
     {
         $path   = str_replace([], [], '/locale/continents');
@@ -55,7 +57,8 @@ class Locale extends Service
      * supported language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getCountries(): array
     {
         $path   = str_replace([], [], '/locale/countries');
@@ -73,7 +76,8 @@ class Locale extends Service
      * locale header to get the data in a supported language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getCountriesEU(): array
     {
         $path   = str_replace([], [], '/locale/countries/eu');
@@ -91,7 +95,8 @@ class Locale extends Service
      * data in a supported language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getCountriesPhones(): array
     {
         $path   = str_replace([], [], '/locale/countries/phones');
@@ -110,7 +115,8 @@ class Locale extends Service
      * header to get the data in a supported language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getCurrencies(): array
     {
         $path   = str_replace([], [], '/locale/currencies');
@@ -128,7 +134,8 @@ class Locale extends Service
      * in English, and name in the respective language.
      *
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getLanguages(): array
     {
         $path   = str_replace([], [], '/locale/languages');

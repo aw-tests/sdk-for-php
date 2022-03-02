@@ -23,7 +23,8 @@ class Database extends Service
      * @param string $cursorDirection
      * @param string $orderType
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function listCollections(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/database/collections');
@@ -69,7 +70,8 @@ class Database extends Service
      * @param array $read
      * @param array $write
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createCollection(string $collectionId, string $name, string $permission, array $read, array $write): array
     {
         if (!isset($collectionId)) {
@@ -128,7 +130,8 @@ class Database extends Service
      *
      * @param string $collectionId
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getCollection(string $collectionId): array
     {
         if (!isset($collectionId)) {
@@ -155,7 +158,8 @@ class Database extends Service
      * @param array $write
      * @param bool $enabled
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function updateCollection(string $collectionId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null): array
     {
         if (!isset($collectionId)) {
@@ -206,8 +210,9 @@ class Database extends Service
      *
      * @param string $collectionId
      * @throws AppwriteException
-    * @return string     */
-    public function deleteCollection(string $collectionId): string
+     * @return array
+     */
+    public function deleteCollection(string $collectionId): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -226,7 +231,8 @@ class Database extends Service
      *
      * @param string $collectionId
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function listAttributes(string $collectionId): array
     {
         if (!isset($collectionId)) {
@@ -253,7 +259,8 @@ class Database extends Service
      * @param bool $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createBooleanAttribute(string $collectionId, string $key, bool $required, bool $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -304,7 +311,8 @@ class Database extends Service
      * @param string $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createEmailAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -353,7 +361,8 @@ class Database extends Service
      * @param string $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createEnumAttribute(string $collectionId, string $key, array $elements, bool $required, string $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -415,7 +424,8 @@ class Database extends Service
      * @param int $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createFloatAttribute(string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -477,7 +487,8 @@ class Database extends Service
      * @param int $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createIntegerAttribute(string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -536,7 +547,8 @@ class Database extends Service
      * @param string $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createIpAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -588,7 +600,8 @@ class Database extends Service
      * @param string $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createStringAttribute(string $collectionId, string $key, int $size, bool $required, string $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -647,7 +660,8 @@ class Database extends Service
      * @param string $xdefault
      * @param bool $xarray
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createUrlAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
         if (!isset($collectionId)) {
@@ -692,7 +706,8 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getAttribute(string $collectionId, string $key): array
     {
         if (!isset($collectionId)) {
@@ -717,8 +732,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-    * @return string     */
-    public function deleteAttribute(string $collectionId, string $key): string
+     * @return array
+     */
+    public function deleteAttribute(string $collectionId, string $key): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -753,7 +769,8 @@ class Database extends Service
      * @param array $orderAttributes
      * @param array $orderTypes
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function listDocuments(string $collectionId, array $queries = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, array $orderAttributes = null, array $orderTypes = null): array
     {
         if (!isset($collectionId)) {
@@ -810,7 +827,8 @@ class Database extends Service
      * @param array $read
      * @param array $write
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createDocument(string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
         if (!isset($collectionId)) {
@@ -858,7 +876,8 @@ class Database extends Service
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getDocument(string $collectionId, string $documentId): array
     {
         if (!isset($collectionId)) {
@@ -889,7 +908,8 @@ class Database extends Service
      * @param array $read
      * @param array $write
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function updateDocument(string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
         if (!isset($collectionId)) {
@@ -934,8 +954,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
-    * @return string     */
-    public function deleteDocument(string $collectionId, string $documentId): string
+     * @return array
+     */
+    public function deleteDocument(string $collectionId, string $documentId): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
@@ -958,7 +979,8 @@ class Database extends Service
      *
      * @param string $collectionId
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function listIndexes(string $collectionId): array
     {
         if (!isset($collectionId)) {
@@ -982,7 +1004,8 @@ class Database extends Service
      * @param array $attributes
      * @param array $orders
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function createIndex(string $collectionId, string $key, string $type, array $attributes, array $orders = null): array
     {
         if (!isset($collectionId)) {
@@ -1031,7 +1054,8 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-    * @return array     */
+     * @return array
+     */
     public function getIndex(string $collectionId, string $key): array
     {
         if (!isset($collectionId)) {
@@ -1056,8 +1080,9 @@ class Database extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-    * @return string     */
-    public function deleteIndex(string $collectionId, string $key): string
+     * @return array
+     */
+    public function deleteIndex(string $collectionId, string $key): array
     {
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');

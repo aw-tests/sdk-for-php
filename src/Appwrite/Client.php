@@ -45,7 +45,7 @@ class Client
      */
     public function __construct()
     {
-        $this->headers['X-Appwrite-Response-Format'] = '0.12.0';
+        $this->headers['X-Appwrite-Response-Format'] = '0.13.0';
  
     }
 
