@@ -68,7 +68,7 @@ PATCH https://HOSTNAME/v1/account/name
 PATCH https://HOSTNAME/v1/account/password
 ```
 
-** Update currently logged in user password. For validation, user is required to pass in the new password, and the old password. For users created with OAuth and Team Invites, oldPassword is optional. **
+** Update currently logged in user password. For validation, user is required to pass in the new password, and the old password. For users created with OAuth, Team Invites and Magic URL, oldPassword is optional. **
 
 ### Parameters
 
@@ -168,6 +168,8 @@ GET https://HOSTNAME/v1/account/sessions/{sessionId}
 ```http request
 PATCH https://HOSTNAME/v1/account/sessions/{sessionId}
 ```
+
+** Access tokens have limited lifespan and expire to mitigate security risks. If session was created using an OAuth provider, this route can be used to &quot;refresh&quot; the access token. **
 
 ### Parameters
 

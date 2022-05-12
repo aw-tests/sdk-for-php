@@ -219,6 +219,29 @@ class Users extends Service
     }
 
     /**
+     * Get User Memberships
+     *
+     * Get the user membership list by its unique ID.
+     *
+     * @param string $userId
+     * @throws AppwriteException
+     * @return array
+     */
+    public function getMemberships(string $userId): array
+    {
+        if (!isset($userId)) {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        $path   = str_replace(['{userId}'], [$userId], '/users/{userId}/memberships');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_GET, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
      * Update Name
      *
      * Update the user name by its unique ID.

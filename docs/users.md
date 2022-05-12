@@ -95,6 +95,20 @@ GET https://HOSTNAME/v1/users/{userId}/logs
 | limit | integer | Maximum number of logs to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
 
+## Get User Memberships
+
+```http request
+GET https://HOSTNAME/v1/users/{userId}/memberships
+```
+
+** Get the user membership list by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User ID. |  |
+
 ## Update Name
 
 ```http request
