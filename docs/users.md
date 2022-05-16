@@ -56,7 +56,7 @@ GET https://HOSTNAME/v1/users/{userId}
 DELETE https://HOSTNAME/v1/users/{userId}
 ```
 
-** Delete a user by its unique ID. **
+** Delete a user by its unique ID, thereby releasing it&#039;s ID. Since ID is released and can be reused, all user-related resources like documents or storage files should be deleted before user deletion. If you want to keep ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus) endpoint instead. **
 
 ### Parameters
 
@@ -217,7 +217,7 @@ DELETE https://HOSTNAME/v1/users/{userId}/sessions/{sessionId}
 PATCH https://HOSTNAME/v1/users/{userId}/status
 ```
 
-** Update the user status by its unique ID. **
+** Update the user status by its unique ID. Use this endpoint as an alternative to deleting a user if you want to keep user&#039;s ID reserved. **
 
 ### Parameters
 

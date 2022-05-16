@@ -8,14 +8,6 @@ GET https://HOSTNAME/v1/account
 
 ** Get currently logged in user data as JSON object. **
 
-## Delete Account
-
-```http request
-DELETE https://HOSTNAME/v1/account
-```
-
-** Delete a currently logged in user account. Behind the scene, the user record is not deleted but permanently blocked from any access. This is done to avoid deleted accounts being overtaken by new users with the same email address. Any user-related resources like documents or storage files should be deleted separately. **
-
 ## Update Account Email
 
 ```http request
@@ -191,6 +183,14 @@ DELETE https://HOSTNAME/v1/account/sessions/{sessionId}
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | sessionId | string | **Required** Session ID. Use the string &#039;current&#039; to delete the current device session. |  |
+
+## Update Account Status
+
+```http request
+PATCH https://HOSTNAME/v1/account/status
+```
+
+** Block the currently logged in user account. Behind the scene, the user record is not deleted but permanently blocked from any access. To completely delete a user, use the Users API instead. **
 
 ## Create Email Verification
 

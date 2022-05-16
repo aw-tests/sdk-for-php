@@ -27,28 +27,6 @@ class Account extends Service
     }
 
     /**
-     * Delete Account
-     *
-     * Delete a currently logged in user account. Behind the scene, the user
-     * record is not deleted but permanently blocked from any access. This is done
-     * to avoid deleted accounts being overtaken by new users with the same email
-     * address. Any user-related resources like documents or storage files should
-     * be deleted separately.
-     *
-     * @throws AppwriteException
-     * @return array
-     */
-    public function delete(): array
-    {
-        $path   = str_replace([], [], '/account');
-        $params = [];
-
-        return $this->client->call(Client::METHOD_DELETE, $path, [
-            'content-type' => 'application/json',
-        ], $params);
-    }
-
-    /**
      * Update Account Email
      *
      * Update currently logged in user account email address. After changing user
@@ -442,6 +420,26 @@ class Account extends Service
         $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Update Account Status
+     *
+     * Block the currently logged in user account. Behind the scene, the user
+     * record is not deleted but permanently blocked from any access. To
+     * completely delete a user, use the Users API instead.
+     *
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updateStatus(): array
+    {
+        $path   = str_replace([], [], '/account/status');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_PATCH, $path, [
             'content-type' => 'application/json',
         ], $params);
     }

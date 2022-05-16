@@ -133,7 +133,11 @@ class Users extends Service
     /**
      * Delete User
      *
-     * Delete a user by its unique ID.
+     * Delete a user by its unique ID, thereby releasing it's ID. Since ID is
+     * released and can be reused, all user-related resources like documents or
+     * storage files should be deleted before user deletion. If you want to keep
+     * ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus)
+     * endpoint instead.
      *
      * @param string $userId
      * @throws AppwriteException
@@ -439,7 +443,8 @@ class Users extends Service
     /**
      * Update User Status
      *
-     * Update the user status by its unique ID.
+     * Update the user status by its unique ID. Use this endpoint as an
+     * alternative to deleting a user if you want to keep user's ID reserved.
      *
      * @param string $userId
      * @param bool $status
