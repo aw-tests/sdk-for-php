@@ -13,4 +13,4 @@ $client
 
 $users = new Users($client);
 
-$result = $users->updateVerification('[USER_ID]', false);
+$result = $users->updatePhone('[USER_ID]', '');

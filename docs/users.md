@@ -139,6 +139,21 @@ PATCH https://HOSTNAME/v1/users/{userId}/password
 | userId | string | **Required** User ID. |  |
 | password | string | New user password. Must be at least 8 chars. |  |
 
+## Update Phone
+
+```http request
+PATCH https://HOSTNAME/v1/users/{userId}/phone
+```
+
+** Update the user phone by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User ID. |  |
+| number | string | User phone number. |  |
+
 ## Get User Preferences
 
 ```http request
@@ -240,4 +255,19 @@ PATCH https://HOSTNAME/v1/users/{userId}/verification
 | --- | --- | --- | --- |
 | userId | string | **Required** User ID. |  |
 | emailVerification | boolean | User email verification status. |  |
+
+## Update Phone Verification
+
+```http request
+PATCH https://HOSTNAME/v1/users/{userId}/verification/phone
+```
+
+** Update the user phone verification status by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| userId | string | **Required** User ID. |  |
+| phoneVerification | boolean | User phone verification status. |  |
 

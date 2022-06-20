@@ -310,6 +310,38 @@ class Users extends Service
     }
 
     /**
+     * Update Phone
+     *
+     * Update the user phone by its unique ID.
+     *
+     * @param string $userId
+     * @param string $number
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updatePhone(string $userId, string $number): array
+    {
+        if (!isset($userId)) {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        if (!isset($number)) {
+            throw new AppwriteException('Missing required parameter: "number"');
+        }
+
+        $path   = str_replace(['{userId}'], [$userId], '/users/{userId}/phone');
+        $params = [];
+
+        if (!is_null($number)) {
+            $params['number'] = $number;
+        }
+
+        return $this->client->call(Client::METHOD_PATCH, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
      * Get User Preferences
      *
      * Get the user preferences by its unique ID.
@@ -483,7 +515,7 @@ class Users extends Service
      * @throws AppwriteException
      * @return array
      */
-    public function updateVerification(string $userId, bool $emailVerification): array
+    public function updateEmailVerification(string $userId, bool $emailVerification): array
     {
         if (!isset($userId)) {
             throw new AppwriteException('Missing required parameter: "userId"');
@@ -498,6 +530,38 @@ class Users extends Service
 
         if (!is_null($emailVerification)) {
             $params['emailVerification'] = $emailVerification;
+        }
+
+        return $this->client->call(Client::METHOD_PATCH, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Update Phone Verification
+     *
+     * Update the user phone verification status by its unique ID.
+     *
+     * @param string $userId
+     * @param bool $phoneVerification
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updatePhoneVerification(string $userId, bool $phoneVerification): array
+    {
+        if (!isset($userId)) {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        if (!isset($phoneVerification)) {
+            throw new AppwriteException('Missing required parameter: "phoneVerification"');
+        }
+
+        $path   = str_replace(['{userId}'], [$userId], '/users/{userId}/verification/phone');
+        $params = [];
+
+        if (!is_null($phoneVerification)) {
+            $params['phoneVerification'] = $phoneVerification;
         }
 
         return $this->client->call(Client::METHOD_PATCH, $path, [

@@ -160,6 +160,45 @@ class Account extends Service
     }
 
     /**
+     * Update Account Phone
+     *
+     * Update currently logged in user account phone number. After changing phone
+     * number, the user confirmation status will get reset. A new confirmation SMS
+     * is not sent automatically however you can use the phone confirmation
+     * endpoint again to send the confirmation SMS.
+     *
+     * @param string $number
+     * @param string $password
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updatePhone(string $number, string $password): array
+    {
+        if (!isset($number)) {
+            throw new AppwriteException('Missing required parameter: "number"');
+        }
+
+        if (!isset($password)) {
+            throw new AppwriteException('Missing required parameter: "password"');
+        }
+
+        $path   = str_replace([], [], '/account/phone');
+        $params = [];
+
+        if (!is_null($number)) {
+            $params['number'] = $number;
+        }
+
+        if (!is_null($password)) {
+            $params['password'] = $password;
+        }
+
+        return $this->client->call(Client::METHOD_PATCH, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
      * Get Account Preferences
      *
      * Get currently logged in user preferences as a key-value object.
@@ -454,8 +493,8 @@ class Account extends Service
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateVerification). The verification
-     * link sent to the user's email address is valid for 7 days.
+     * process](/docs/client/account#accountUpdateEmailVerification). The
+     * verification link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -509,6 +548,69 @@ class Account extends Service
         }
 
         $path   = str_replace([], [], '/account/verification');
+        $params = [];
+
+        if (!is_null($userId)) {
+            $params['userId'] = $userId;
+        }
+
+        if (!is_null($secret)) {
+            $params['secret'] = $secret;
+        }
+
+        return $this->client->call(Client::METHOD_PUT, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Create Phone Verification
+     *
+     * Use this endpoint to send a verification message to your user's phone
+     * number to confirm they are the valid owners of that address. The provided
+     * secret should allow you to complete the verification process by verifying
+     * both the **userId** and **secret** parameters. Learn more about how to
+     * [complete the verification
+     * process](/docs/client/account#accountUpdatePhoneVerification). The
+     * verification link sent to the user's phone number is valid for 15 minutes.
+     *
+     * @throws AppwriteException
+     * @return array
+     */
+    public function createPhoneVerification(): array
+    {
+        $path   = str_replace([], [], '/account/verification/phone');
+        $params = [];
+
+        return $this->client->call(Client::METHOD_POST, $path, [
+            'content-type' => 'application/json',
+        ], $params);
+    }
+
+    /**
+     * Create Phone Verification (confirmation)
+     *
+     * Use this endpoint to complete the user phone verification process. Use the
+     * **userId** and **secret** that were sent to your user's phone number to
+     * verify the user email ownership. If confirmed this route will return a 200
+     * status code.
+     *
+     * @param string $userId
+     * @param string $secret
+     * @throws AppwriteException
+     * @return array
+     */
+    public function updatePhoneVerification(string $userId, string $secret): array
+    {
+        if (!isset($userId)) {
+            throw new AppwriteException('Missing required parameter: "userId"');
+        }
+
+        if (!isset($secret)) {
+            throw new AppwriteException('Missing required parameter: "secret"');
+        }
+
+        $path   = str_replace([], [], '/account/verification/phone');
         $params = [];
 
         if (!is_null($userId)) {
