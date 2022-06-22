@@ -5,6 +5,7 @@ namespace Appwrite\Services;
 use Appwrite\AppwriteException;
 use Appwrite\Client;
 use Appwrite\Service;
+use Appwrite\InputFile;
 
 class Databases extends Service
 {
@@ -19,12 +20,13 @@ class Databases extends Service
      * @param string $orderType
      * @throws AppwriteException
      * @return array
+
      */
     public function list(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
         $path   = str_replace([], [], '/databases');
-        $params = [];
 
+        $params = [];
         if (!is_null($search)) {
             $params['search'] = $search;
         }
@@ -49,6 +51,7 @@ class Databases extends Service
             $params['orderType'] = $orderType;
         }
 
+
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -61,20 +64,19 @@ class Databases extends Service
      * @param string $name
      * @throws AppwriteException
      * @return array
+
      */
     public function create(string $databaseId, string $name): array
     {
+        $path   = str_replace([], [], '/databases');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
-        $path   = str_replace([], [], '/databases');
-        $params = [];
-
         if (!is_null($databaseId)) {
             $params['databaseId'] = $databaseId;
         }
@@ -82,6 +84,7 @@ class Databases extends Service
         if (!is_null($name)) {
             $params['name'] = $name;
         }
+
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -94,15 +97,16 @@ class Databases extends Service
      * @param string $databaseId
      * @throws AppwriteException
      * @return array
+
      */
     public function get(string $databaseId): array
     {
+        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -116,23 +120,23 @@ class Databases extends Service
      * @param string $name
      * @throws AppwriteException
      * @return array
+
      */
     public function update(string $databaseId, string $name): array
     {
+        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
-        $params = [];
-
         if (!is_null($name)) {
             $params['name'] = $name;
         }
+
 
         return $this->client->call(Client::METHOD_PUT, $path, [
             'content-type' => 'application/json',
@@ -144,16 +148,17 @@ class Databases extends Service
      *
      * @param string $databaseId
      * @throws AppwriteException
-     * @return array
+     * @return string
+
      */
-    public function delete(string $databaseId): array
+    public function delete(string $databaseId): string
     {
+        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -172,16 +177,16 @@ class Databases extends Service
      * @param string $orderType
      * @throws AppwriteException
      * @return array
+
      */
     public function listCollections(string $databaseId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
+        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
-        $params = [];
-
         if (!is_null($search)) {
             $params['search'] = $search;
         }
@@ -206,6 +211,7 @@ class Databases extends Service
             $params['orderType'] = $orderType;
         }
 
+
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -222,36 +228,31 @@ class Databases extends Service
      * @param array $write
      * @throws AppwriteException
      * @return array
+
      */
     public function createCollection(string $databaseId, string $collectionId, string $name, string $permission, array $read, array $write): array
     {
+        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
         if (!isset($permission)) {
             throw new AppwriteException('Missing required parameter: "permission"');
         }
-
         if (!isset($read)) {
             throw new AppwriteException('Missing required parameter: "read"');
         }
-
         if (!isset($write)) {
             throw new AppwriteException('Missing required parameter: "write"');
         }
-
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
-        $params = [];
-
         if (!is_null($collectionId)) {
             $params['collectionId'] = $collectionId;
         }
@@ -272,6 +273,7 @@ class Databases extends Service
             $params['write'] = $write;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -284,19 +286,19 @@ class Databases extends Service
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
+
      */
     public function getCollection(string $databaseId, string $collectionId): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -315,28 +317,25 @@ class Databases extends Service
      * @param bool $enabled
      * @throws AppwriteException
      * @return array
+
      */
     public function updateCollection(string $databaseId, string $collectionId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-
         if (!isset($permission)) {
             throw new AppwriteException('Missing required parameter: "permission"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
-        $params = [];
-
         if (!is_null($name)) {
             $params['name'] = $name;
         }
@@ -357,6 +356,7 @@ class Databases extends Service
             $params['enabled'] = $enabled;
         }
 
+
         return $this->client->call(Client::METHOD_PUT, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -368,20 +368,20 @@ class Databases extends Service
      * @param string $databaseId
      * @param string $collectionId
      * @throws AppwriteException
-     * @return array
+     * @return string
+
      */
-    public function deleteCollection(string $databaseId, string $collectionId): array
+    public function deleteCollection(string $databaseId, string $collectionId): string
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -395,19 +395,19 @@ class Databases extends Service
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
+
      */
     public function listAttributes(string $databaseId, string $collectionId): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -425,28 +425,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createBooleanAttribute(string $databaseId, string $collectionId, string $key, bool $required, bool $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/boolean');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/boolean');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -462,6 +459,7 @@ class Databases extends Service
         if (!is_null($xarray)) {
             $params['array'] = $xarray;
         }
+
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -479,28 +477,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createEmailAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/email');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/email');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -516,6 +511,7 @@ class Databases extends Service
         if (!is_null($xarray)) {
             $params['array'] = $xarray;
         }
+
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -534,32 +530,28 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createEnumAttribute(string $databaseId, string $collectionId, string $key, array $elements, bool $required, string $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/enum');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($elements)) {
             throw new AppwriteException('Missing required parameter: "elements"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/enum');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -580,6 +572,7 @@ class Databases extends Service
             $params['array'] = $xarray;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -598,28 +591,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createFloatAttribute(string $databaseId, string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/float');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/float');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -643,6 +633,7 @@ class Databases extends Service
         if (!is_null($xarray)) {
             $params['array'] = $xarray;
         }
+
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -662,28 +653,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createIntegerAttribute(string $databaseId, string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/integer');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/integer');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -708,6 +696,7 @@ class Databases extends Service
             $params['array'] = $xarray;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -724,28 +713,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createIpAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/ip');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/ip');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -761,6 +747,7 @@ class Databases extends Service
         if (!is_null($xarray)) {
             $params['array'] = $xarray;
         }
+
 
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
@@ -779,32 +766,28 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createStringAttribute(string $databaseId, string $collectionId, string $key, int $size, bool $required, string $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/string');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($size)) {
             throw new AppwriteException('Missing required parameter: "size"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/string');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -825,6 +808,7 @@ class Databases extends Service
             $params['array'] = $xarray;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -841,28 +825,25 @@ class Databases extends Service
      * @param bool $xarray
      * @throws AppwriteException
      * @return array
+
      */
     public function createUrlAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/url');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($required)) {
             throw new AppwriteException('Missing required parameter: "required"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/url');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -879,6 +860,7 @@ class Databases extends Service
             $params['array'] = $xarray;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -892,23 +874,22 @@ class Databases extends Service
      * @param string $key
      * @throws AppwriteException
      * @return array
+
      */
     public function getAttribute(string $databaseId, string $collectionId, string $key): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -922,24 +903,23 @@ class Databases extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-     * @return array
+     * @return string
+
      */
-    public function deleteAttribute(string $databaseId, string $collectionId, string $key): array
+    public function deleteAttribute(string $databaseId, string $collectionId, string $key): string
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -960,20 +940,19 @@ class Databases extends Service
      * @param array $orderTypes
      * @throws AppwriteException
      * @return array
+
      */
     public function listDocuments(string $databaseId, string $collectionId, array $queries = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, array $orderAttributes = null, array $orderTypes = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
-        $params = [];
-
         if (!is_null($queries)) {
             $params['queries'] = $queries;
         }
@@ -1002,6 +981,7 @@ class Databases extends Service
             $params['orderTypes'] = $orderTypes;
         }
 
+
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -1018,28 +998,25 @@ class Databases extends Service
      * @param array $write
      * @throws AppwriteException
      * @return array
+
      */
     public function createDocument(string $databaseId, string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($documentId)) {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
-
         if (!isset($data)) {
             throw new AppwriteException('Missing required parameter: "data"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
-        $params = [];
-
         if (!is_null($documentId)) {
             $params['documentId'] = $documentId;
         }
@@ -1056,6 +1033,7 @@ class Databases extends Service
             $params['write'] = $write;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -1069,23 +1047,22 @@ class Databases extends Service
      * @param string $documentId
      * @throws AppwriteException
      * @return array
+
      */
     public function getDocument(string $databaseId, string $collectionId, string $documentId): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($documentId)) {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -1103,28 +1080,25 @@ class Databases extends Service
      * @param array $write
      * @throws AppwriteException
      * @return array
+
      */
     public function updateDocument(string $databaseId, string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($documentId)) {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
-
         if (!isset($data)) {
             throw new AppwriteException('Missing required parameter: "data"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
-        $params = [];
-
         if (!is_null($data)) {
             $params['data'] = $data;
         }
@@ -1136,6 +1110,7 @@ class Databases extends Service
         if (!is_null($write)) {
             $params['write'] = $write;
         }
+
 
         return $this->client->call(Client::METHOD_PATCH, $path, [
             'content-type' => 'application/json',
@@ -1149,24 +1124,23 @@ class Databases extends Service
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
-     * @return array
+     * @return string
+
      */
-    public function deleteDocument(string $databaseId, string $collectionId, string $documentId): array
+    public function deleteDocument(string $databaseId, string $collectionId, string $documentId): string
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($documentId)) {
             throw new AppwriteException('Missing required parameter: "documentId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -1180,19 +1154,19 @@ class Databases extends Service
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
+
      */
     public function listIndexes(string $databaseId, string $collectionId): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -1210,32 +1184,28 @@ class Databases extends Service
      * @param array $orders
      * @throws AppwriteException
      * @return array
+
      */
     public function createIndex(string $databaseId, string $collectionId, string $key, string $type, array $attributes, array $orders = null): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
         if (!isset($type)) {
             throw new AppwriteException('Missing required parameter: "type"');
         }
-
         if (!isset($attributes)) {
             throw new AppwriteException('Missing required parameter: "attributes"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
-        $params = [];
-
         if (!is_null($key)) {
             $params['key'] = $key;
         }
@@ -1252,6 +1222,7 @@ class Databases extends Service
             $params['orders'] = $orders;
         }
 
+
         return $this->client->call(Client::METHOD_POST, $path, [
             'content-type' => 'application/json',
         ], $params);
@@ -1265,23 +1236,22 @@ class Databases extends Service
      * @param string $key
      * @throws AppwriteException
      * @return array
+
      */
     public function getIndex(string $databaseId, string $collectionId, string $key): array
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -1295,24 +1265,23 @@ class Databases extends Service
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
-     * @return array
+     * @return string
+
      */
-    public function deleteIndex(string $databaseId, string $collectionId, string $key): array
+    public function deleteIndex(string $databaseId, string $collectionId, string $key): string
     {
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
+
+        $params = [];
         if (!isset($databaseId)) {
             throw new AppwriteException('Missing required parameter: "databaseId"');
         }
-
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
-
         if (!isset($key)) {
             throw new AppwriteException('Missing required parameter: "key"');
         }
-
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
-        $params = [];
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
