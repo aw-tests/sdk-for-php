@@ -1,12 +1,10 @@
-# Database Service
+# Databases Service
 
-## List Collections
+## List Databases
 
 ```http request
-GET https://HOSTNAME/v1/database/collections
+GET https://HOSTNAME/v1/databases
 ```
-
-** Get a list of all the user collections. You can use the query params to filter your results. On admin mode, this endpoint will return a list of all of the project&#039;s collections. [Learn more about different API modes](/docs/admin). **
 
 ### Parameters
 
@@ -19,18 +17,85 @@ GET https://HOSTNAME/v1/database/collections
 | cursorDirection | string | Direction of the cursor. | after |
 | orderType | string | Order result by ASC or DESC order. | ASC |
 
-## Create Collection
+## Create Database
 
 ```http request
-POST https://HOSTNAME/v1/database/collections
+POST https://HOSTNAME/v1/databases
 ```
-
-** Create a new Collection. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
+| name | string | Collection name. Max length: 128 chars. |  |
+
+## Get Database
+
+```http request
+GET https://HOSTNAME/v1/databases/{databaseId}
+```
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
+
+## Update Database
+
+```http request
+PUT https://HOSTNAME/v1/databases/{databaseId}
+```
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
+| name | string | Collection name. Max length: 128 chars. |  |
+
+## Delete Database
+
+```http request
+DELETE https://HOSTNAME/v1/databases/{databaseId}
+```
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
+
+## List Collections
+
+```http request
+GET https://HOSTNAME/v1/databases/{databaseId}/collections
+```
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
+| search | string | Search term to filter your list results. Max length: 256 chars. |  |
+| limit | integer | Maximum number of collection to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
+| offset | integer | Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
+| cursor | string | ID of the collection used as the starting point for the query, excluding the collection itself. Should be used for efficient pagination when working with large sets of data. |  |
+| cursorDirection | string | Direction of the cursor. | after |
+| orderType | string | Order result by ASC or DESC order. | ASC |
+
+## Create Collection
+
+```http request
+POST https://HOSTNAME/v1/databases/{databaseId}/collections
+```
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | name | string | Collection name. Max length: 128 chars. |  |
 | permission | string | Specifies the permissions model used in this collection, which accepts either &#039;collection&#039; or &#039;document&#039;. For &#039;collection&#039; level permission, the permissions specified in read and write params are applied to all documents in the collection. For &#039;document&#039; level permissions, read and write permissions are specified in each document. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. |  |
@@ -40,29 +105,27 @@ POST https://HOSTNAME/v1/database/collections
 ## Get Collection
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}
 ```
-
-** Get a collection by its unique ID. This endpoint response returns a JSON object with the collection metadata. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. |  |
 
 ## Update Collection
 
 ```http request
-PUT https://HOSTNAME/v1/database/collections/{collectionId}
+PUT https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}
 ```
-
-** Update a collection by its unique ID. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. |  |
 | name | string | Collection name. Max length: 128 chars. |  |
 | permission | string | Permissions type model to use for reading documents in this collection. You can use collection-level permission set once on the collection using the `read` and `write` params, or you can set document-level permission where each document read and write params will decide who has access to read and write to each document individually. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. |  |
@@ -73,42 +136,40 @@ PUT https://HOSTNAME/v1/database/collections/{collectionId}
 ## Delete Collection
 
 ```http request
-DELETE https://HOSTNAME/v1/database/collections/{collectionId}
+DELETE https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}
 ```
-
-** Delete a collection by its unique ID. Only users with write permissions have access to delete this resource. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. |  |
 
 ## List Attributes
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/attributes
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 
 ## Create Boolean Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/boolean
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/boolean
 ```
-
-** Create a boolean attribute.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -118,16 +179,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/boolean
 ## Create Email Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/email
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/email
 ```
-
-** Create an email attribute.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -137,16 +196,17 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/email
 ## Create Enum Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/enum
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/enum
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
-| elements | array | Array of elements in enumerated type. Uses length of longest element to determine size. Maximum of 100 elements are allowed, each 1024 characters long. |  |
+| elements | array | Array of elements in enumerated type. Uses length of longest element to determine size. Maximum of 100 elements are allowed, each 4096 characters long. |  |
 | required | boolean | Is attribute required? |  |
 | default | string | Default value for attribute when not provided. Cannot be set when attribute is required. |  |
 | array | boolean | Is attribute an array? |  |
@@ -154,16 +214,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/enum
 ## Create Float Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/float
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/float
 ```
-
-** Create a float attribute. Optionally, minimum and maximum values can be provided.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -175,16 +233,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/float
 ## Create Integer Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/integer
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/integer
 ```
-
-** Create an integer attribute. Optionally, minimum and maximum values can be provided.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -196,16 +252,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/integer
 ## Create IP Address Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/ip
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/ip
 ```
-
-** Create IP address attribute.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -215,16 +269,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/ip
 ## Create String Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/string
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/string
 ```
-
-** Create a string attribute.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | size | integer | Attribute size for text attributes, in number of characters. |  |
@@ -235,16 +287,14 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/string
 ## Create URL Attribute
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/url
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/url
 ```
-
-** Create a URL attribute.
- **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Attribute Key. |  |
 | required | boolean | Is attribute required? |  |
@@ -254,62 +304,62 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/attributes/url
 ## Get Attribute
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/attributes/{key}
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/{key}
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | **Required** Attribute Key. |  |
 
 ## Delete Attribute
 
 ```http request
-DELETE https://HOSTNAME/v1/database/collections/{collectionId}/attributes/{key}
+DELETE https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/attributes/{key}
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | **Required** Attribute Key. |  |
 
 ## List Documents
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/documents
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/documents
 ```
-
-** Get a list of all the user documents. You can use the query params to filter your results. On admin mode, this endpoint will return a list of all of the project&#039;s documents. [Learn more about different API modes](/docs/admin). **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
-| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/database#querying-documents). Maximum of 100 queries are allowed, each 128 characters long. | [] |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/database#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. | [] |
 | limit | integer | Maximum number of documents to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
 | offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
 | cursor | string | ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
 | cursorDirection | string | Direction of the cursor. | after |
-| orderAttributes | array | Array of attributes used to sort results. Maximum of 100 order attributes are allowed, each 128 characters long. | [] |
+| orderAttributes | array | Array of attributes used to sort results. Maximum of 100 order attributes are allowed, each 4096 characters long. | [] |
 | orderTypes | array | Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order. Maximum of 100 order types are allowed. | [] |
 
 ## Create Document
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/documents
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/documents
 ```
-
-** Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](/docs/server/database#databaseCreateCollection) API or directly from your database console. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). Make sure to define attributes before creating documents. |  |
 | documentId | string | Document ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
 | data | object | Document data as JSON object. | {} |
@@ -319,30 +369,28 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/documents
 ## Get Document
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/documents/{documentId}
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/documents/{documentId}
 ```
-
-** Get a document by its unique ID. This endpoint response returns a JSON object with the document data. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | documentId | string | **Required** Document ID. |  |
 
 ## Update Document
 
 ```http request
-PATCH https://HOSTNAME/v1/database/collections/{collectionId}/documents/{documentId}
+PATCH https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/documents/{documentId}
 ```
-
-** Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. |  |
 | documentId | string | **Required** Document ID. |  |
 | data | object | Document data as JSON object. Include only attribute and value pairs to be updated. | {} |
@@ -352,40 +400,41 @@ PATCH https://HOSTNAME/v1/database/collections/{collectionId}/documents/{documen
 ## Delete Document
 
 ```http request
-DELETE https://HOSTNAME/v1/database/collections/{collectionId}/documents/{documentId}
+DELETE https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/documents/{documentId}
 ```
-
-** Delete a document by its unique ID. **
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | documentId | string | **Required** Document ID. |  |
 
 ## List Indexes
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/indexes
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/indexes
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 
 ## Create Index
 
 ```http request
-POST https://HOSTNAME/v1/database/collections/{collectionId}/indexes
+POST https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/indexes
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | Index Key. |  |
 | type | string | Index type. |  |
@@ -395,26 +444,28 @@ POST https://HOSTNAME/v1/database/collections/{collectionId}/indexes
 ## Get Index
 
 ```http request
-GET https://HOSTNAME/v1/database/collections/{collectionId}/indexes/{key}
+GET https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/indexes/{key}
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | **Required** Index Key. |  |
 
 ## Delete Index
 
 ```http request
-DELETE https://HOSTNAME/v1/database/collections/{collectionId}/indexes/{key}
+DELETE https://HOSTNAME/v1/databases/{databaseId}/collections/{collectionId}/indexes/{key}
 ```
 
 ### Parameters
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| databaseId | string | **Required** Database ID. |  |
 | collectionId | string | **Required** Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). |  |
 | key | string | **Required** Index Key. |  |
 

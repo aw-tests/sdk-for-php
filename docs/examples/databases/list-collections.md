@@ -1,7 +1,7 @@
 <?php
 
 use Appwrite\Client;
-use Appwrite\Services\Database;
+use Appwrite\Services\Databases;
 
 $client = new Client();
 
@@ -11,6 +11,6 @@ $client
     ->setKey('919c2d18fb5d4...a2ae413da83346ad2') // Your secret API key
 ;
 
-$database = new Database($client);
+$databases = new Databases($client);
 
-$result = $database->createUrlAttribute('[COLLECTION_ID]', '', false);
+$result = $databases->listCollections('[DATABASE_ID]');
