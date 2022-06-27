@@ -9,6 +9,24 @@ use Appwrite\InputFile;
 
 class Databases extends Service
 {
+     protected string  $databaseId;
+
+     public function setDatabaseId(string $databaseId): void
+     {
+          $this->databaseId = $databaseId;
+     }
+
+     public function getDatabaseId(string $databaseId): string 
+     {
+          return $this->databaseId;
+     }
+
+     public function __construct(Client $client,  string $databaseId)
+     {
+          $this->client = $client;
+          $this->databaseId = $databaseId;
+     }
+
     /**
      * List Databases
      *
@@ -94,19 +112,15 @@ class Databases extends Service
     /**
      * Get Database
      *
-     * @param string $databaseId
      * @throws AppwriteException
      * @return array
 
      */
-    public function get(string $databaseId): array
+    public function get(): array
     {
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+        $path   = str_replace(['{databaseId}'], [$this->databaseId], '/databases/{databaseId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
 
         return $this->client->call(Client::METHOD_GET, $path, [
             'content-type' => 'application/json',
@@ -116,20 +130,16 @@ class Databases extends Service
     /**
      * Update Database
      *
-     * @param string $databaseId
      * @param string $name
      * @throws AppwriteException
      * @return array
 
      */
-    public function update(string $databaseId, string $name): array
+    public function update(string $name): array
     {
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+        $path   = str_replace(['{databaseId}'], [$this->databaseId], '/databases/{databaseId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
@@ -146,19 +156,15 @@ class Databases extends Service
     /**
      * Delete Database
      *
-     * @param string $databaseId
      * @throws AppwriteException
      * @return string
 
      */
-    public function delete(string $databaseId): string
+    public function delete(): string
     {
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}');
+        $path   = str_replace(['{databaseId}'], [$this->databaseId], '/databases/{databaseId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
 
         return $this->client->call(Client::METHOD_DELETE, $path, [
             'content-type' => 'application/json',
@@ -168,7 +174,6 @@ class Databases extends Service
     /**
      * List Collections
      *
-     * @param string $databaseId
      * @param string $search
      * @param int $limit
      * @param int $offset
@@ -179,14 +184,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function listCollections(string $databaseId, string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
+    public function listCollections(string $search = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, string $orderType = null): array
     {
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
+        $path   = str_replace(['{databaseId}'], [$this->databaseId], '/databases/{databaseId}/collections');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!is_null($search)) {
             $params['search'] = $search;
         }
@@ -220,7 +222,6 @@ class Databases extends Service
     /**
      * Create Collection
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $name
      * @param string $permission
@@ -230,14 +231,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createCollection(string $databaseId, string $collectionId, string $name, string $permission, array $read, array $write): array
+    public function createCollection(string $collectionId, string $name, string $permission, array $read, array $write): array
     {
-        $path   = str_replace(['{databaseId}'], [$databaseId], '/databases/{databaseId}/collections');
+        $path   = str_replace(['{databaseId}'], [$this->databaseId], '/databases/{databaseId}/collections');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -282,20 +280,16 @@ class Databases extends Service
     /**
      * Get Collection
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
 
      */
-    public function getCollection(string $databaseId, string $collectionId): array
+    public function getCollection(string $collectionId): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -308,7 +302,6 @@ class Databases extends Service
     /**
      * Update Collection
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $name
      * @param string $permission
@@ -319,14 +312,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function updateCollection(string $databaseId, string $collectionId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null): array
+    public function updateCollection(string $collectionId, string $name, string $permission, array $read = null, array $write = null, bool $enabled = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -365,20 +355,16 @@ class Databases extends Service
     /**
      * Delete Collection
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @throws AppwriteException
      * @return string
 
      */
-    public function deleteCollection(string $databaseId, string $collectionId): string
+    public function deleteCollection(string $collectionId): string
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -391,20 +377,16 @@ class Databases extends Service
     /**
      * List Attributes
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
 
      */
-    public function listAttributes(string $databaseId, string $collectionId): array
+    public function listAttributes(string $collectionId): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -417,7 +399,6 @@ class Databases extends Service
     /**
      * Create Boolean Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -427,14 +408,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createBooleanAttribute(string $databaseId, string $collectionId, string $key, bool $required, bool $xdefault = null, bool $xarray = null): array
+    public function createBooleanAttribute(string $collectionId, string $key, bool $required, bool $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/boolean');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/boolean');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -469,7 +447,6 @@ class Databases extends Service
     /**
      * Create Email Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -479,14 +456,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createEmailAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
+    public function createEmailAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/email');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/email');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -521,7 +495,6 @@ class Databases extends Service
     /**
      * Create Enum Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param array $elements
@@ -532,14 +505,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createEnumAttribute(string $databaseId, string $collectionId, string $key, array $elements, bool $required, string $xdefault = null, bool $xarray = null): array
+    public function createEnumAttribute(string $collectionId, string $key, array $elements, bool $required, string $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/enum');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/enum');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -581,7 +551,6 @@ class Databases extends Service
     /**
      * Create Float Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -593,14 +562,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createFloatAttribute(string $databaseId, string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
+    public function createFloatAttribute(string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/float');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/float');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -643,7 +609,6 @@ class Databases extends Service
     /**
      * Create Integer Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -655,14 +620,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createIntegerAttribute(string $databaseId, string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
+    public function createIntegerAttribute(string $collectionId, string $key, bool $required, int $min = null, int $max = null, int $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/integer');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/integer');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -705,7 +667,6 @@ class Databases extends Service
     /**
      * Create IP Address Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -715,14 +676,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createIpAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
+    public function createIpAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/ip');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/ip');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -757,7 +715,6 @@ class Databases extends Service
     /**
      * Create String Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param int $size
@@ -768,14 +725,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createStringAttribute(string $databaseId, string $collectionId, string $key, int $size, bool $required, string $xdefault = null, bool $xarray = null): array
+    public function createStringAttribute(string $collectionId, string $key, int $size, bool $required, string $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/string');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/string');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -817,7 +771,6 @@ class Databases extends Service
     /**
      * Create URL Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param bool $required
@@ -827,14 +780,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createUrlAttribute(string $databaseId, string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
+    public function createUrlAttribute(string $collectionId, string $key, bool $required, string $xdefault = null, bool $xarray = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/url');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/attributes/url');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -869,21 +819,17 @@ class Databases extends Service
     /**
      * Get Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
      * @return array
 
      */
-    public function getAttribute(string $databaseId, string $collectionId, string $key): array
+    public function getAttribute(string $collectionId, string $key): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$this->databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -899,21 +845,17 @@ class Databases extends Service
     /**
      * Delete Attribute
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
      * @return string
 
      */
-    public function deleteAttribute(string $databaseId, string $collectionId, string $key): string
+    public function deleteAttribute(string $collectionId, string $key): string
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$this->databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/attributes/{key}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -929,7 +871,6 @@ class Databases extends Service
     /**
      * List Documents
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param array $queries
      * @param int $limit
@@ -942,14 +883,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function listDocuments(string $databaseId, string $collectionId, array $queries = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, array $orderAttributes = null, array $orderTypes = null): array
+    public function listDocuments(string $collectionId, array $queries = null, int $limit = null, int $offset = null, string $cursor = null, string $cursorDirection = null, array $orderAttributes = null, array $orderTypes = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -990,7 +928,6 @@ class Databases extends Service
     /**
      * Create Document
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $documentId
      * @param array $data
@@ -1000,14 +937,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createDocument(string $databaseId, string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
+    public function createDocument(string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/documents');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1042,21 +976,17 @@ class Databases extends Service
     /**
      * Get Document
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
      * @return array
 
      */
-    public function getDocument(string $databaseId, string $collectionId, string $documentId): array
+    public function getDocument(string $collectionId, string $documentId): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$this->databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1072,7 +1002,6 @@ class Databases extends Service
     /**
      * Update Document
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $documentId
      * @param array $data
@@ -1082,22 +1011,16 @@ class Databases extends Service
      * @return array
 
      */
-    public function updateDocument(string $databaseId, string $collectionId, string $documentId, array $data, array $read = null, array $write = null): array
+    public function updateDocument(string $collectionId, string $documentId, array $data = null, array $read = null, array $write = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$this->databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
         if (!isset($documentId)) {
             throw new AppwriteException('Missing required parameter: "documentId"');
-        }
-        if (!isset($data)) {
-            throw new AppwriteException('Missing required parameter: "data"');
         }
         if (!is_null($data)) {
             $params['data'] = $data;
@@ -1120,21 +1043,17 @@ class Databases extends Service
     /**
      * Delete Document
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $documentId
      * @throws AppwriteException
      * @return string
 
      */
-    public function deleteDocument(string $databaseId, string $collectionId, string $documentId): string
+    public function deleteDocument(string $collectionId, string $documentId): string
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{documentId}'], [$this->databaseId, $collectionId, $documentId], '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1150,20 +1069,16 @@ class Databases extends Service
     /**
      * List Indexes
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @throws AppwriteException
      * @return array
 
      */
-    public function listIndexes(string $databaseId, string $collectionId): array
+    public function listIndexes(string $collectionId): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1176,7 +1091,6 @@ class Databases extends Service
     /**
      * Create Index
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @param string $type
@@ -1186,14 +1100,11 @@ class Databases extends Service
      * @return array
 
      */
-    public function createIndex(string $databaseId, string $collectionId, string $key, string $type, array $attributes, array $orders = null): array
+    public function createIndex(string $collectionId, string $key, string $type, array $attributes, array $orders = null): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}'], [$databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
+        $path   = str_replace(['{databaseId}', '{collectionId}'], [$this->databaseId, $collectionId], '/databases/{databaseId}/collections/{collectionId}/indexes');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1231,21 +1142,17 @@ class Databases extends Service
     /**
      * Get Index
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
      * @return array
 
      */
-    public function getIndex(string $databaseId, string $collectionId, string $key): array
+    public function getIndex(string $collectionId, string $key): array
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$this->databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
@@ -1261,21 +1168,17 @@ class Databases extends Service
     /**
      * Delete Index
      *
-     * @param string $databaseId
      * @param string $collectionId
      * @param string $key
      * @throws AppwriteException
      * @return string
 
      */
-    public function deleteIndex(string $databaseId, string $collectionId, string $key): string
+    public function deleteIndex(string $collectionId, string $key): string
     {
-        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
+        $path   = str_replace(['{databaseId}', '{collectionId}', '{key}'], [$this->databaseId, $collectionId, $key], '/databases/{databaseId}/collections/{collectionId}/indexes/{key}');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($collectionId)) {
             throw new AppwriteException('Missing required parameter: "collectionId"');
         }
