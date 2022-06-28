@@ -78,25 +78,21 @@ class Databases extends Service
     /**
      * Create Database
      *
-     * @param string $databaseId
      * @param string $name
      * @throws AppwriteException
      * @return array
 
      */
-    public function create(string $databaseId, string $name): array
+    public function create(string $name): array
     {
         $path   = str_replace([], [], '/databases');
 
         $params = [];
-        if (!isset($databaseId)) {
-            throw new AppwriteException('Missing required parameter: "databaseId"');
-        }
         if (!isset($name)) {
             throw new AppwriteException('Missing required parameter: "name"');
         }
-        if (!is_null($databaseId)) {
-            $params['databaseId'] = $databaseId;
+        if (!is_null($this->databaseId)) {
+            $params['databaseId'] = $this->databaseId;
         }
 
         if (!is_null($name)) {
