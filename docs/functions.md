@@ -12,12 +12,8 @@ GET https://HOSTNAME/v1/functions
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, enabled, runtime, deployment, schedule, scheduleNext, schedulePrevious, timeout | [] |
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
-| limit | integer | Maximum number of functions to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
-| cursor | string | ID of the function used as the starting point for the query, excluding the function itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
-| cursorDirection | string | Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;. | after |
-| orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Function
 
@@ -31,14 +27,14 @@ POST https://HOSTNAME/v1/functions
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| functionId | string | Function ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
+| functionId | string | Function ID. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars. |  |
 | name | string | Function name. Max length: 128 chars. |  |
-| execute | array | An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. Maximum of 100 scopes are allowed, each 64 characters long. |  |
+| execute | array | An array of strings with execution roles. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 64 characters long. |  |
 | runtime | string | Execution runtime. |  |
-| vars | object | Key-value JSON object that will be passed to the function as environment variables. | {} |
 | events | array | Events list. Maximum of 100 events are allowed. | [] |
 | schedule | string | Schedule CRON syntax. |  |
 | timeout | integer | Function maximum execution time in seconds. | 15 |
+| enabled | boolean | Is function enabled? | 1 |
 
 ## List runtimes
 
@@ -76,11 +72,11 @@ PUT https://HOSTNAME/v1/functions/{functionId}
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function ID. |  |
 | name | string | Function name. Max length: 128 chars. |  |
-| execute | array | An array of strings with execution permissions. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions. Maximum of 100 scopes are allowed, each 64 characters long. |  |
-| vars | object | Key-value JSON object that will be passed to the function as environment variables. | {} |
+| execute | array | An array of strings with execution roles. By default no user is granted with any execute permissions. [learn more about permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 64 characters long. |  |
 | events | array | Events list. Maximum of 100 events are allowed. | [] |
 | schedule | string | Schedule CRON syntax. |  |
 | timeout | integer | Maximum execution time in seconds. | 15 |
+| enabled | boolean | Is function enabled? | 1 |
 
 ## Delete Function
 
@@ -109,12 +105,8 @@ GET https://HOSTNAME/v1/functions/{functionId}/deployments
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function ID. |  |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: entrypoint, size, buildId, activate | [] |
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
-| limit | integer | Maximum number of deployments to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
-| cursor | string | ID of the deployment used as the starting point for the query, excluding the deployment itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
-| cursorDirection | string | Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;. | after |
-| orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Deployment
 
@@ -209,11 +201,8 @@ GET https://HOSTNAME/v1/functions/{functionId}/executions
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function ID. |  |
-| limit | integer | Maximum number of executions to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, duration | [] |
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
-| cursor | string | ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
-| cursorDirection | string | Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;. | after |
 
 ## Create Execution
 
@@ -229,7 +218,7 @@ POST https://HOSTNAME/v1/functions/{functionId}/executions
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function ID. |  |
 | data | string | String of custom data to send to function. |  |
-| async | boolean | Execute code asynchronously. Default value is true. | 1 |
+| async | boolean | Execute code in the background. Default value is false. |  |
 
 ## Get Execution
 
@@ -245,4 +234,81 @@ GET https://HOSTNAME/v1/functions/{functionId}/executions/{executionId}
 | --- | --- | --- | --- |
 | functionId | string | **Required** Function ID. |  |
 | executionId | string | **Required** Execution ID. |  |
+
+## List Variables
+
+```http request
+GET https://HOSTNAME/v1/functions/{functionId}/variables
+```
+
+** Get a list of all variables of a specific function. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| functionId | string | **Required** Function unique ID. |  |
+
+## Create Variable
+
+```http request
+POST https://HOSTNAME/v1/functions/{functionId}/variables
+```
+
+** Create a new function variable. These variables can be accessed within function in the `env` object under the request variable. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| functionId | string | **Required** Function unique ID. |  |
+| key | string | Variable key. Max length: 255 chars. |  |
+| value | string | Variable value. Max length: 8192 chars. |  |
+
+## Get Variable
+
+```http request
+GET https://HOSTNAME/v1/functions/{functionId}/variables/{variableId}
+```
+
+** Get a variable by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| functionId | string | **Required** Function unique ID. |  |
+| variableId | string | **Required** Variable unique ID. |  |
+
+## Update Variable
+
+```http request
+PUT https://HOSTNAME/v1/functions/{functionId}/variables/{variableId}
+```
+
+** Update variable by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| functionId | string | **Required** Function unique ID. |  |
+| variableId | string | **Required** Variable unique ID. |  |
+| key | string | Variable key. Max length: 255 chars. |  |
+| value | string | Variable value. Max length: 8192 chars. |  |
+
+## Delete Variable
+
+```http request
+DELETE https://HOSTNAME/v1/functions/{functionId}/variables/{variableId}
+```
+
+** Delete a variable by its unique ID. **
+
+### Parameters
+
+| Field Name | Type | Description | Default |
+| --- | --- | --- | --- |
+| functionId | string | **Required** Function unique ID. |  |
+| variableId | string | **Required** Variable unique ID. |  |
 

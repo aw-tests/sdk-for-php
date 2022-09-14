@@ -14,12 +14,8 @@ In admin mode, this endpoint returns a list of all the teams in the current proj
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total | [] |
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
-| limit | integer | Maximum number of teams to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
-| cursor | string | ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
-| cursorDirection | string | Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;. | after |
-| orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Team
 
@@ -33,7 +29,7 @@ POST https://HOSTNAME/v1/teams
 
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
-| teamId | string | Team ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars. |  |
+| teamId | string | Team ID. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars. |  |
 | name | string | Team name. Max length: 128 chars. |  |
 | roles | array | Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long. | [&quot;owner&quot;] |
 
@@ -80,7 +76,7 @@ DELETE https://HOSTNAME/v1/teams/{teamId}
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team ID. |  |
 
-## Get Team Memberships
+## List Team Memberships
 
 ```http request
 GET https://HOSTNAME/v1/teams/{teamId}/memberships
@@ -93,12 +89,8 @@ GET https://HOSTNAME/v1/teams/{teamId}/memberships
 | Field Name | Type | Description | Default |
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team ID. |  |
+| queries | array | Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm | [] |
 | search | string | Search term to filter your list results. Max length: 256 chars. |  |
-| limit | integer | Maximum number of memberships to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request. | 25 |
-| offset | integer | Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination) | 0 |
-| cursor | string | ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination) |  |
-| cursorDirection | string | Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;. | after |
-| orderType | string | Order result by ASC or DESC order. | ASC |
 
 ## Create Team Membership
 
@@ -151,7 +143,7 @@ PATCH https://HOSTNAME/v1/teams/{teamId}/memberships/{membershipId}
 | --- | --- | --- | --- |
 | teamId | string | **Required** Team ID. |  |
 | membershipId | string | **Required** Membership ID. |  |
-| roles | array | An array of strings. Use this param to set the user&#039;s roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long. |  |
+| roles | array | An array of strings. Use this param to set the user's roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long. |  |
 
 ## Delete Team Membership
 
