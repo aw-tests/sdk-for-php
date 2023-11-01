@@ -14,4 +14,4 @@ $client
 
 $avatars = new Avatars($client);
 
-$result = $avatars->getBrowser(Browser.AA);
+$result = $avatars->getBrowser(Browser::AVANT_BROWSER());

@@ -14,4 +14,4 @@ $client
 
 $avatars = new Avatars($client);
 
-$result = $avatars->getFlag(Flag.AF);
+$result = $avatars->getFlag(Flag::AFGHANISTAN());

@@ -6,20 +6,20 @@ use JsonSerializable;
 
 class Browser implements JsonSerializable
 {
-    private static Browser $AA;
-    private static Browser $AN;
-    private static Browser $CH;
-    private static Browser $CI;
-    private static Browser $CM;
-    private static Browser $CR;
-    private static Browser $FF;
-    private static Browser $SF;
-    private static Browser $MF;
-    private static Browser $PS;
-    private static Browser $OI;
-    private static Browser $OM;
-    private static Browser $OP;
-    private static Browser $ON;
+    private static Browser $AVANT_BROWSER;
+    private static Browser $ANDROID_WEB_VIEW_BETA;
+    private static Browser $GOOGLE_CHROME;
+    private static Browser $GOOGLE_CHROMEI_OS;
+    private static Browser $GOOGLE_CHROME_MOBILE;
+    private static Browser $CHROMIUM;
+    private static Browser $MOZILLA_FIREFOX;
+    private static Browser $SAFARI;
+    private static Browser $MOBILE_SAFARI;
+    private static Browser $MICROSOFT_EDGE;
+    private static Browser $MICROSOFT_EDGEI_OS;
+    private static Browser $OPERA_MINI;
+    private static Browser $OPERA;
+    private static Browser $OPERA_NEXT;
 
     private string $value;
 
@@ -59,19 +59,19 @@ class Browser implements JsonSerializable
         }
         return self::$GOOGLE_CHROME;
     }
-    public static function GOOGLE_CHROME(): Browser
+    public static function GOOGLE_CHROMEI_OS(): Browser
     {
-        if (!isset(self::$GOOGLE_CHROME_(I_OS))) {
-            self::$GOOGLE_CHROME_(I_OS) = new Browser('ci');
+        if (!isset(self::$GOOGLE_CHROMEI_OS)) {
+            self::$GOOGLE_CHROMEI_OS = new Browser('ci');
         }
-        return self::$GOOGLE_CHROME_(I_OS);
+        return self::$GOOGLE_CHROMEI_OS;
     }
     public static function GOOGLE_CHROME_MOBILE(): Browser
     {
-        if (!isset(self::$GOOGLE_CHROME_(MOBILE))) {
-            self::$GOOGLE_CHROME_(MOBILE) = new Browser('cm');
+        if (!isset(self::$GOOGLE_CHROME_MOBILE)) {
+            self::$GOOGLE_CHROME_MOBILE = new Browser('cm');
         }
-        return self::$GOOGLE_CHROME_(MOBILE);
+        return self::$GOOGLE_CHROME_MOBILE;
     }
     public static function CHROMIUM(): Browser
     {
@@ -108,12 +108,12 @@ class Browser implements JsonSerializable
         }
         return self::$MICROSOFT_EDGE;
     }
-    public static function MICROSOFT_EDGE(): Browser
+    public static function MICROSOFT_EDGEI_OS(): Browser
     {
-        if (!isset(self::$MICROSOFT_EDGE_(I_OS))) {
-            self::$MICROSOFT_EDGE_(I_OS) = new Browser('oi');
+        if (!isset(self::$MICROSOFT_EDGEI_OS)) {
+            self::$MICROSOFT_EDGEI_OS = new Browser('oi');
         }
-        return self::$MICROSOFT_EDGE_(I_OS);
+        return self::$MICROSOFT_EDGEI_OS;
     }
     public static function OPERA_MINI(): Browser
     {
@@ -131,9 +131,9 @@ class Browser implements JsonSerializable
     }
     public static function OPERA_NEXT(): Browser
     {
-        if (!isset(self::$OPERA_(NEXT))) {
-            self::$OPERA_(NEXT) = new Browser('on');
+        if (!isset(self::$OPERA_NEXT)) {
+            self::$OPERA_NEXT = new Browser('on');
         }
-        return self::$OPERA_(NEXT);
+        return self::$OPERA_NEXT;
     }
 }

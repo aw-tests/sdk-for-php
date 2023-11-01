@@ -3,12 +3,6 @@
 use Appwrite\Client;
 use Appwrite\Services\Databases;
 
-
-
-
-
-
-
 $client = new Client();
 
 $client

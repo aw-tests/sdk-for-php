@@ -6,10 +6,10 @@ use JsonSerializable;
 
 class Runtime implements JsonSerializable
 {
-    private static Runtime $NODE-18.0;
-    private static Runtime $PHP-8.0;
-    private static Runtime $RUBY-3.1;
-    private static Runtime $PYTHON-3.9;
+    private static Runtime $NODE180;
+    private static Runtime $PHP80;
+    private static Runtime $RUBY31;
+    private static Runtime $PYTHON39;
 
     private string $value;
 
@@ -28,32 +28,32 @@ class Runtime implements JsonSerializable
         return $this->value;
     }
 
-    public static function NODE(): Runtime
+    public static function NODE180(): Runtime
     {
-        if (!isset(self::$NODE-18.0)) {
-            self::$NODE-18.0 = new Runtime('node-18.0');
+        if (!isset(self::$NODE180)) {
+            self::$NODE180 = new Runtime('node-18.0');
         }
-        return self::$NODE-18.0;
+        return self::$NODE180;
     }
-    public static function PHP(): Runtime
+    public static function PHP80(): Runtime
     {
-        if (!isset(self::$PHP-8.0)) {
-            self::$PHP-8.0 = new Runtime('php-8.0');
+        if (!isset(self::$PHP80)) {
+            self::$PHP80 = new Runtime('php-8.0');
         }
-        return self::$PHP-8.0;
+        return self::$PHP80;
     }
-    public static function RUBY(): Runtime
+    public static function RUBY31(): Runtime
     {
-        if (!isset(self::$RUBY-3.1)) {
-            self::$RUBY-3.1 = new Runtime('ruby-3.1');
+        if (!isset(self::$RUBY31)) {
+            self::$RUBY31 = new Runtime('ruby-3.1');
         }
-        return self::$RUBY-3.1;
+        return self::$RUBY31;
     }
-    public static function PYTHON(): Runtime
+    public static function PYTHON39(): Runtime
     {
-        if (!isset(self::$PYTHON-3.9)) {
-            self::$PYTHON-3.9 = new Runtime('python-3.9');
+        if (!isset(self::$PYTHON39)) {
+            self::$PYTHON39 = new Runtime('python-3.9');
         }
-        return self::$PYTHON-3.9;
+        return self::$PYTHON39;
     }
 }

@@ -7,14 +7,14 @@ use JsonSerializable;
 class ImageGravity implements JsonSerializable
 {
     private static ImageGravity $CENTER;
-    private static ImageGravity $TOP-LEFT;
+    private static ImageGravity $TOPLEFT;
     private static ImageGravity $TOP;
-    private static ImageGravity $TOP-RIGHT;
+    private static ImageGravity $TOPRIGHT;
     private static ImageGravity $LEFT;
     private static ImageGravity $RIGHT;
-    private static ImageGravity $BOTTOM-LEFT;
+    private static ImageGravity $BOTTOMLEFT;
     private static ImageGravity $BOTTOM;
-    private static ImageGravity $BOTTOM-RIGHT;
+    private static ImageGravity $BOTTOMRIGHT;
 
     private string $value;
 
@@ -40,12 +40,12 @@ class ImageGravity implements JsonSerializable
         }
         return self::$CENTER;
     }
-    public static function TOP_LEFT(): ImageGravity
+    public static function TOPLEFT(): ImageGravity
     {
-        if (!isset(self::$TOP-LEFT)) {
-            self::$TOP-LEFT = new ImageGravity('top-left');
+        if (!isset(self::$TOPLEFT)) {
+            self::$TOPLEFT = new ImageGravity('top-left');
         }
-        return self::$TOP-LEFT;
+        return self::$TOPLEFT;
     }
     public static function TOP(): ImageGravity
     {
@@ -54,12 +54,12 @@ class ImageGravity implements JsonSerializable
         }
         return self::$TOP;
     }
-    public static function TOP_RIGHT(): ImageGravity
+    public static function TOPRIGHT(): ImageGravity
     {
-        if (!isset(self::$TOP-RIGHT)) {
-            self::$TOP-RIGHT = new ImageGravity('top-right');
+        if (!isset(self::$TOPRIGHT)) {
+            self::$TOPRIGHT = new ImageGravity('top-right');
         }
-        return self::$TOP-RIGHT;
+        return self::$TOPRIGHT;
     }
     public static function LEFT(): ImageGravity
     {
@@ -75,12 +75,12 @@ class ImageGravity implements JsonSerializable
         }
         return self::$RIGHT;
     }
-    public static function BOTTOM_LEFT(): ImageGravity
+    public static function BOTTOMLEFT(): ImageGravity
     {
-        if (!isset(self::$BOTTOM-LEFT)) {
-            self::$BOTTOM-LEFT = new ImageGravity('bottom-left');
+        if (!isset(self::$BOTTOMLEFT)) {
+            self::$BOTTOMLEFT = new ImageGravity('bottom-left');
         }
-        return self::$BOTTOM-LEFT;
+        return self::$BOTTOMLEFT;
     }
     public static function BOTTOM(): ImageGravity
     {
@@ -89,11 +89,11 @@ class ImageGravity implements JsonSerializable
         }
         return self::$BOTTOM;
     }
-    public static function BOTTOM_RIGHT(): ImageGravity
+    public static function BOTTOMRIGHT(): ImageGravity
     {
-        if (!isset(self::$BOTTOM-RIGHT)) {
-            self::$BOTTOM-RIGHT = new ImageGravity('bottom-right');
+        if (!isset(self::$BOTTOMRIGHT)) {
+            self::$BOTTOMRIGHT = new ImageGravity('bottom-right');
         }
-        return self::$BOTTOM-RIGHT;
+        return self::$BOTTOMRIGHT;
     }
 }

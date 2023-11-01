@@ -3,10 +3,6 @@
 use Appwrite\Client;
 use Appwrite\Services\Teams;
 
-
-
-
-
 $client = new Client();
 
 $client

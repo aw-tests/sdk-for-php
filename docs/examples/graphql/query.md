@@ -3,7 +3,6 @@
 use Appwrite\Client;
 use Appwrite\Services\Graphql;
 
-
 $client = new Client();
 
 $client

@@ -4,9 +4,6 @@ use Appwrite\Client;
 use Appwrite\InputFile;
 use Appwrite\Services\Functions;
 
-
-
-
 $client = new Client();
 
 $client

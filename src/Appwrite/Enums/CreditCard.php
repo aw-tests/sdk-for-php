@@ -6,19 +6,19 @@ use JsonSerializable;
 
 class CreditCard implements JsonSerializable
 {
-    private static CreditCard $AMEX;
+    private static CreditCard $AMERICAN_EXPRESS;
     private static CreditCard $ARGENCARD;
     private static CreditCard $CABAL;
-    private static CreditCard $CENSOSUD;
-    private static CreditCard $DINERS;
+    private static CreditCard $CONSOSUD;
+    private static CreditCard $DINERS_CLUB;
     private static CreditCard $DISCOVER;
     private static CreditCard $ELO;
     private static CreditCard $HIPERCARD;
     private static CreditCard $JCB;
     private static CreditCard $MASTERCARD;
     private static CreditCard $NARANJA;
-    private static CreditCard $TARGETA-SHOPPING;
-    private static CreditCard $UNION-CHINA-PAY;
+    private static CreditCard $TARJETA_SHOPPING;
+    private static CreditCard $UNION_CHINA_PAY;
     private static CreditCard $VISA;
     private static CreditCard $MIR;
     private static CreditCard $MAESTRO;

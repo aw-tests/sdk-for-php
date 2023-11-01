@@ -3,7 +3,6 @@
 use Appwrite\Client;
 use Appwrite\Services\Avatars;
 
-
 $client = new Client();
 
 $client

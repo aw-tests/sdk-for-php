@@ -3,7 +3,6 @@
 use Appwrite\Client;
 use Appwrite\Services\Functions;
 
-
 $client = new Client();
 
 $client

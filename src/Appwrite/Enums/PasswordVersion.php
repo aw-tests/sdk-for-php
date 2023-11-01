@@ -10,13 +10,13 @@ class PasswordVersion implements JsonSerializable
     private static PasswordVersion $SHA224;
     private static PasswordVersion $SHA256;
     private static PasswordVersion $SHA384;
-    private static PasswordVersion $SHA512/224;
-    private static PasswordVersion $SHA512/256;
+    private static PasswordVersion $SHA512224;
+    private static PasswordVersion $SHA512256;
     private static PasswordVersion $SHA512;
-    private static PasswordVersion $SHA3-224;
-    private static PasswordVersion $SHA3-256;
-    private static PasswordVersion $SHA3-384;
-    private static PasswordVersion $SHA3-512;
+    private static PasswordVersion $SHA3224;
+    private static PasswordVersion $SHA3256;
+    private static PasswordVersion $SHA3384;
+    private static PasswordVersion $SHA3512;
 
     private string $value;
 
@@ -63,19 +63,19 @@ class PasswordVersion implements JsonSerializable
         }
         return self::$SHA384;
     }
-    public static function SHA512(): PasswordVersion
+    public static function SHA512224(): PasswordVersion
     {
-        if (!isset(self::$SHA512/224)) {
-            self::$SHA512/224 = new PasswordVersion('sha512/224');
+        if (!isset(self::$SHA512224)) {
+            self::$SHA512224 = new PasswordVersion('sha512/224');
         }
-        return self::$SHA512/224;
+        return self::$SHA512224;
     }
-    public static function SHA512(): PasswordVersion
+    public static function SHA512256(): PasswordVersion
     {
-        if (!isset(self::$SHA512/256)) {
-            self::$SHA512/256 = new PasswordVersion('sha512/256');
+        if (!isset(self::$SHA512256)) {
+            self::$SHA512256 = new PasswordVersion('sha512/256');
         }
-        return self::$SHA512/256;
+        return self::$SHA512256;
     }
     public static function SHA512(): PasswordVersion
     {
@@ -84,32 +84,32 @@ class PasswordVersion implements JsonSerializable
         }
         return self::$SHA512;
     }
-    public static function SHA3(): PasswordVersion
+    public static function SHA3224(): PasswordVersion
     {
-        if (!isset(self::$SHA3-224)) {
-            self::$SHA3-224 = new PasswordVersion('sha3-224');
+        if (!isset(self::$SHA3224)) {
+            self::$SHA3224 = new PasswordVersion('sha3-224');
         }
-        return self::$SHA3-224;
+        return self::$SHA3224;
     }
-    public static function SHA3(): PasswordVersion
+    public static function SHA3256(): PasswordVersion
     {
-        if (!isset(self::$SHA3-256)) {
-            self::$SHA3-256 = new PasswordVersion('sha3-256');
+        if (!isset(self::$SHA3256)) {
+            self::$SHA3256 = new PasswordVersion('sha3-256');
         }
-        return self::$SHA3-256;
+        return self::$SHA3256;
     }
-    public static function SHA3(): PasswordVersion
+    public static function SHA3384(): PasswordVersion
     {
-        if (!isset(self::$SHA3-384)) {
-            self::$SHA3-384 = new PasswordVersion('sha3-384');
+        if (!isset(self::$SHA3384)) {
+            self::$SHA3384 = new PasswordVersion('sha3-384');
         }
-        return self::$SHA3-384;
+        return self::$SHA3384;
     }
-    public static function SHA3(): PasswordVersion
+    public static function SHA3512(): PasswordVersion
     {
-        if (!isset(self::$SHA3-512)) {
-            self::$SHA3-512 = new PasswordVersion('sha3-512');
+        if (!isset(self::$SHA3512)) {
+            self::$SHA3512 = new PasswordVersion('sha3-512');
         }
-        return self::$SHA3-512;
+        return self::$SHA3512;
     }
 }

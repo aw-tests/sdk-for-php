@@ -14,4 +14,4 @@ $client
 
 $avatars = new Avatars($client);
 
-$result = $avatars->getCreditCard(CreditCard.AMEX);
+$result = $avatars->getCreditCard(CreditCard::AMERICAN_EXPRESS());
